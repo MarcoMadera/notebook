@@ -1,20 +1,15 @@
-import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { type CookieMethodsServer, createServerClient } from "@supabase/ssr";
+import { type NextRequest, NextResponse } from "next/server";
 
 const PUBLIC_ROUTES = ["/signup", "/forgot", "/login", "/confirm", "/auth"];
 const AUTH_RESTRICTED_ROUTES = ["/forgot", "/signup", "/login"];
 
-interface CookieHandler {
-  getAll: () => ReturnType<NextRequest["cookies"]["getAll"]>;
-  setAll: (
-    cookies: Array<{ name: string; value: string; options?: any }>
-  ) => void;
-}
-
-export async function updateSession(request: NextRequest) {
+export async function updateSession(
+  request: NextRequest
+): Promise<NextResponse<unknown>> {
   let response = NextResponse.next({ request });
 
-  const cookieHandler: CookieHandler = {
+  const cookieHandler: CookieMethodsServer = {
     getAll() {
       return request.cookies.getAll();
     },

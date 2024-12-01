@@ -12,9 +12,11 @@ export const SignupFormSchema = z.object({
     })
     .trim(),
 });
+
 export const ForgotPasswordSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
 });
+
 export const UpdatePasswordSchema = z.object({
   password: z
     .string()

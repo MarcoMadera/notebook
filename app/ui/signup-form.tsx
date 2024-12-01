@@ -1,10 +1,12 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
-import { signup } from "@/app/actions/auth";
-import { useActionState } from "react";
+import { ReactElement, useActionState } from "react";
 
-export function SignupForm() {
+import { useFormStatus } from "react-dom";
+
+import { signup } from "@/app/actions/auth";
+
+export function SignupForm(): ReactElement {
   const [state, action] = useActionState(signup, undefined);
 
   return (

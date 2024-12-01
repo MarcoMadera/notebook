@@ -5,7 +5,6 @@ import prettierPlugin from "eslint-plugin-prettier";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
 import jestPlugin from "eslint-plugin-jest";
 import typescriptPlugin from "@typescript-eslint/eslint-plugin";
-import storybookPlugin from "eslint-plugin-storybook";
 import importPlugin from "eslint-plugin-import";
 import { includeIgnoreFile } from "@eslint/compat";
 import prettierConfig from "eslint-config-prettier";
@@ -15,6 +14,7 @@ import nodePlugin from "eslint-plugin-n";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import nextPlugin from "@next/eslint-plugin-next";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const gitignorePath = path.resolve(__dirname, ".gitignore");
@@ -39,7 +39,6 @@ export default [
       "jsx-a11y": jsxA11yPlugin,
       prettier: prettierPlugin,
       "@typescript-eslint": typescriptPlugin,
-      storybook: storybookPlugin,
       import: importPlugin,
       next: nextPlugin,
       "react-hooks": reactHooksPlugin,
@@ -126,6 +125,11 @@ export default [
           pathGroups: [
             {
               pattern: "react",
+              group: "builtin",
+              position: "before",
+            },
+            {
+              pattern: "next",
               group: "builtin",
               position: "before",
             },

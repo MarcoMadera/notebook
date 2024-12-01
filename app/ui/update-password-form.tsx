@@ -1,10 +1,12 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
-import { updatePassword } from "@/app/actions/auth";
-import { useActionState } from "react";
+import { ReactElement, useActionState } from "react";
 
-export function UpdatePassWordForm() {
+import { useFormStatus } from "react-dom";
+
+import { updatePassword } from "@/app/actions/auth";
+
+export function UpdatePassWordForm(): ReactElement {
   const [state, action] = useActionState(updatePassword, undefined);
 
   return (

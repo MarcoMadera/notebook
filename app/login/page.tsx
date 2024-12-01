@@ -1,10 +1,14 @@
-import { handleSignInWithGoogle } from "../actions/auth";
-import { SigninForm } from "../ui/signin-form";
+import { ReactElement } from "react";
+
 import Link from "next/link";
 
-export default function LoginPage() {
+import { handleSignInWithGoogle } from "../actions/auth";
+import AuthLayout from "../layouts/auth-layout";
+import { SigninForm } from "../ui/signin-form";
+
+export default function LoginPage(): ReactElement {
   return (
-    <div>
+    <AuthLayout>
       <h1>Welcome to notes</h1>
       <p>Please log in to continue</p>
       <SigninForm />
@@ -15,6 +19,6 @@ export default function LoginPage() {
           No account yet? <Link href="/signup">Sign up</Link>
         </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 }

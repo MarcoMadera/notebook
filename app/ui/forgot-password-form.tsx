@@ -1,10 +1,12 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
-import { forgot } from "@/app/actions/auth";
-import { useActionState } from "react";
+import { ReactElement, useActionState } from "react";
 
-export function ForgotPassWordForm() {
+import { useFormStatus } from "react-dom";
+
+import { forgot } from "@/app/actions/auth";
+
+export function ForgotPassWordForm(): ReactElement {
   const [state, action] = useActionState(forgot, undefined);
 
   return (

@@ -1,8 +1,11 @@
-import { handleSignInWithGoogle } from "../actions/auth";
-import { SignupForm } from "../ui/signup-form";
+import { ReactElement } from "react";
+
 import Link from "next/link";
 
-export default function LoginPage() {
+import { handleSignInWithGoogle } from "../actions/auth";
+import { SignupForm } from "../ui/signup-form";
+
+export default function LoginPage(): ReactElement {
   return (
     <div>
       <h1>Create Your Account</h1>
