@@ -1,39 +1,48 @@
 "use client";
 
-import { ReactElement, useActionState } from "react";
+import { ReactElement, useActionState, useState } from "react";
 
 import { useFormStatus } from "react-dom";
 
-import Input from "./input";
+import { HidePassword, ShowPassword } from "./icons";
+import styles from "./SignUpForm.module.css";
+import TextInput from "./TextInput";
 
 import { login } from "@/app/actions/auth";
+import Button from "@/components/Button";
 
 export function SigninForm(): ReactElement {
   const [state, action] = useActionState(login, undefined);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <form action={action}>
+    <form action={action} className={styles.form}>
       <div>
         <label htmlFor="email">Email address</label>
-        <Input id="email" name="email" type="email" placeholder="Email" />
+        <TextInput
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          hint={state?.errors?.email}
+          error={!!state?.errors?.email}
+        />
       </div>
-      {state?.errors?.email && <p>{state.errors.email}</p>}
 
       <div>
         <label htmlFor="password">Password</label>
-        <input id="password" name="password" type="password" />
+        <TextInput
+          type={showPassword ? "text" : "password"}
+          id="password"
+          name="password"
+          rightIcon={showPassword ? <ShowPassword /> : <HidePassword />}
+          onRightIconClick={() => setShowPassword(!showPassword)}
+          placeholder="Enter password"
+          hint={state?.errors?.password}
+          error={!!state?.errors?.password}
+        />
         <a href="./forgot">Forgot</a>
       </div>
-      {state?.errors?.password && (
-        <div>
-          <p>Password must:</p>
-          <ul>
-            {state.errors.password.map((error) => (
-              <li key={error}>- {error}</li>
-            ))}
-          </ul>
-        </div>
-      )}
       <SubmitButton />
 
       {state?.message && <p>{state.message}</p>}
@@ -45,8 +54,8 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} type="submit">
-      Sign In
-    </button>
+    <Button disabled={pending} type="submit" variant="primary">
+      Login
+    </Button>
   );
 }

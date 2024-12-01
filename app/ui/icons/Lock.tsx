@@ -10,8 +10,9 @@ const Lock = ({
   ...props
 }: SVGProps<SVGSVGElement> & SVGRProps): ReactElement => (
   <svg
-    width="1em"
-    height="1em"
+    width="1.5em"
+    height="1.5em"
+    viewBox="0 0 24 24"
     fill="none"
     aria-labelledby={titleId}
     aria-describedby={descId}
@@ -20,14 +21,14 @@ const Lock = ({
     {desc ? <desc id={descId}>{desc}</desc> : null}
     {title ? <title id={titleId}>{title}</title> : null}
     <path
-      stroke="#0E121B"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.8}
       d="M16.424 9.448V7.3a4.552 4.552 0 0 0-4.551-4.551 4.55 4.55 0 0 0-4.57 4.53v2.168"
     />
     <path
-      stroke="#0E121B"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.8}
@@ -35,7 +36,7 @@ const Lock = ({
       clipRule="evenodd"
     />
     <path
-      stroke="#0E121B"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.8}

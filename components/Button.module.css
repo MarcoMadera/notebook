@@ -1,0 +1,84 @@
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-150) var(--spacing-200);
+  gap: var(--spacing-100);
+  border: 1px solid transparent;
+  border-radius: var(--radius-8);
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow:
+    0px 0px 0px 2px var(--neutral-0),
+    0px 0px 0px 4px var(--neutral-400);
+}
+
+.button:disabled {
+  background-color: var(--neutral-50);
+  color: var(--neutral-300);
+  border-color: var(--neutral-50);
+  cursor: not-allowed;
+}
+
+.button.primary {
+  background-color: var(--blue-500);
+  border-color: var(--blue-500);
+  color: var(--neutral-0);
+}
+
+.button.primary:hover {
+  background-color: var(--blue-700);
+  border-color: var(--blue-700);
+}
+
+.button.secondary {
+  background-color: var(--neutral-100);
+  border-color: var(--neutral-100);
+  color: var(--neutral-600);
+}
+
+.button.secondary:hover {
+  background-color: var(--neutral-0);
+  border-color: var(--neutral-300);
+  color: var(--neutral-950);
+  box-shadow: 0px 1px 2px 0px rgba(var(--neutral-950-rgb), 0.03);
+}
+
+.button.secondary:focus {
+  border-color: var(--neutral-950);
+  color: var(--neutral-950);
+}
+
+.button.border {
+  background-color: var(--neutral-0);
+  border-color: var(--neutral-300);
+  color: var(--neutral-950);
+}
+
+.button.border:hover {
+  background-color: var(--neutral-100);
+  border-color: var(--neutral-100);
+  color: var(--neutral-600);
+}
+
+.button.border:focus {
+  border-color: var(--neutral-950);
+  color: var(--neutral-950);
+}
+
+.button.danger {
+  background-color: var(--red-500);
+  border-color: var(--red-500);
+  color: var(--neutral-0);
+}
+
+.button.danger:hover {
+  background-color: var(--red-100);
+  border-color: var(--red-100);
+}
