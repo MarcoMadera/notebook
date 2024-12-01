@@ -10,8 +10,9 @@ const Logout = ({
   ...props
 }: SVGProps<SVGSVGElement> & SVGRProps): ReactElement => (
   <svg
-    width="1em"
-    height="1em"
+    width="1.5em"
+    height="1.5em"
+    viewBox="0 0 24 24"
     fill="none"
     aria-labelledby={titleId}
     aria-describedby={descId}
@@ -20,7 +21,7 @@ const Logout = ({
     {desc ? <desc id={descId}>{desc}</desc> : null}
     {title ? <title id={titleId}>{title}</title> : null}
     <path
-      stroke="#0E121B"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.8}

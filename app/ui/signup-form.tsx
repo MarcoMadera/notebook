@@ -4,13 +4,15 @@ import { ReactElement, useActionState } from "react";
 
 import { useFormStatus } from "react-dom";
 
+import styles from "./SignUpForm.module.css";
+
 import { signup } from "@/app/actions/auth";
 
 export function SignupForm(): ReactElement {
   const [state, action] = useActionState(signup, undefined);
 
   return (
-    <form action={action}>
+    <form action={action} className={styles.form}>
       <div>
         <label htmlFor="email">Email address</label>
         <input id="email" name="email" placeholder="email@example.com" />
