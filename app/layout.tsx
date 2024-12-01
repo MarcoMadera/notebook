@@ -1,5 +1,9 @@
+import { ReactElement } from "react";
+
 import type { Metadata } from "next";
+
 import localFont from "next/font/local";
+
 import "./globals.css";
 
 const inter = localFont({
@@ -27,7 +31,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): ReactElement {
   return (
     <html lang="en">
       <body

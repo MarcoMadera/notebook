@@ -1,18 +1,27 @@
 "use server";
 
-import {
-  SignupFormSchema,
-  FormState,
-  ForgotPasswordSchema,
-  UpdatePasswordSchema,
-} from "@/app/lib/definitions";
-
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import {
+  ForgotPasswordSchema,
+  FormState,
+  SignupFormSchema,
+  UpdatePasswordSchema,
+} from "@/app/lib/definitions";
+
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(_: FormState, formData: FormData) {
+export async function login(
+  _: FormState,
+  formData: FormData
+): Promise<{
+  errors?: {
+    email?: string[];
+    password?: string[];
+  };
+  message?: string;
+}> {
   const supabase = await createClient();
   const {
     data: credentials,
@@ -52,7 +61,16 @@ export async function login(_: FormState, formData: FormData) {
   redirect("/");
 }
 
-export async function signup(_: FormState, formData: FormData) {
+export async function signup(
+  _: FormState,
+  formData: FormData
+): Promise<{
+  errors?: {
+    email?: string[];
+    password?: string[];
+  };
+  message?: string;
+}> {
   const supabase = await createClient();
 
   const {
@@ -82,7 +100,15 @@ export async function signup(_: FormState, formData: FormData) {
   redirect("/login");
 }
 
-export async function forgot(_: FormState, formData: FormData) {
+export async function forgot(
+  _: FormState,
+  formData: FormData
+): Promise<{
+  errors?: {
+    email?: string[];
+  };
+  message?: string;
+}> {
   const supabase = await createClient();
 
   const {
@@ -116,7 +142,15 @@ export async function forgot(_: FormState, formData: FormData) {
     message: "An email was sent to your email.",
   };
 }
-export async function updatePassword(_: FormState, formData: FormData) {
+export async function updatePassword(
+  _: FormState,
+  formData: FormData
+): Promise<{
+  errors?: {
+    password?: string[];
+  };
+  message?: string;
+}> {
   const supabase = await createClient();
 
   const {
@@ -148,7 +182,7 @@ export async function updatePassword(_: FormState, formData: FormData) {
   };
 }
 
-export async function handleSignInWithGoogle(_: FormData) {
+export async function handleSignInWithGoogle(_: FormData): Promise<void> {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({

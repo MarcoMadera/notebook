@@ -1,6 +1,8 @@
+import { ReactElement } from "react";
+
 import { UpdatePassWordForm } from "../ui/update-password-form";
 
-export default function UpdatePassword() {
+export default function UpdatePassword(): ReactElement {
   return (
     <div>
       <h1>Reset Your Password</h1>

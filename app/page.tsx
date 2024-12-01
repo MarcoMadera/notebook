@@ -1,6 +1,11 @@
-import { redirect } from "next/navigation";
-import styles from "./page.module.css";
+import { ReactElement } from "react";
+
 import type { Viewport } from "next";
+
+import { redirect } from "next/navigation";
+
+import styles from "./page.module.css";
+
 import { createClient } from "@/utils/supabase/server";
 
 export function generateViewport(): Viewport {
@@ -17,7 +22,7 @@ export function generateViewport(): Viewport {
   };
 }
 
-export default async function Home() {
+export default async function Home(): Promise<ReactElement> {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();

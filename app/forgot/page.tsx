@@ -1,6 +1,8 @@
+import { ReactElement } from "react";
+
 import { ForgotPassWordForm } from "../ui/forgot-password-form";
 
-export default function LoginPage() {
+export default function LoginPage(): ReactElement {
   return (
     <div>
       <h1>Forgotten your password?</h1>

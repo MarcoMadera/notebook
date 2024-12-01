@@ -1,17 +1,21 @@
 "use client";
 
+import { ReactElement, useActionState } from "react";
+
 import { useFormStatus } from "react-dom";
-import { useActionState } from "react";
+
+import Input from "./input";
+
 import { login } from "@/app/actions/auth";
 
-export function SigninForm() {
+export function SigninForm(): ReactElement {
   const [state, action] = useActionState(login, undefined);
 
   return (
     <form action={action}>
       <div>
         <label htmlFor="email">Email address</label>
-        <input id="email" name="email" type="email" placeholder="Email" />
+        <Input id="email" name="email" type="email" placeholder="Email" />
       </div>
       {state?.errors?.email && <p>{state.errors.email}</p>}
 
