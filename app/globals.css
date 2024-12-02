@@ -496,9 +496,6 @@
   .grid-container {
     max-width: var(--tablet-width);
     padding: 0 var(--tablet-margin);
-  }
-
-  .grid-container--tablet {
     display: grid;
     grid-template-columns: repeat(var(--tablet-columns), var(--tablet-column));
     gap: var(--tablet-gutter);
@@ -513,9 +510,6 @@
 @media (max-width: 768px) {
   .grid-container {
     max-width: var(--mobile-width);
-  }
-
-  .grid-container--mobile {
     display: grid;
     grid-template-columns: repeat(var(--mobile-columns), var(--mobile-column));
     gap: var(--mobile-gutter);
