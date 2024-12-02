@@ -12,20 +12,6 @@
   transition: all 0.2s;
 }
 
-.button:focus {
-  outline: none;
-  box-shadow:
-    0px 0px 0px 2px var(--neutral-0),
-    0px 0px 0px 4px var(--neutral-400);
-}
-
-.button:disabled {
-  background-color: var(--neutral-50);
-  color: var(--neutral-300);
-  border-color: var(--neutral-50);
-  cursor: not-allowed;
-}
-
 .button.primary {
   background-color: var(--blue-500);
   border-color: var(--blue-500);
@@ -81,4 +67,23 @@
 .button.danger:hover {
   background-color: var(--red-100);
   border-color: var(--red-100);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow:
+    0px 0px 0px 2px var(--neutral-0),
+    0px 0px 0px 4px var(--neutral-400);
+}
+
+.button:disabled {
+  background-color: var(--neutral-50);
+  color: var(--neutral-300);
+  border-color: var(--neutral-50);
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  background-color: var(--neutral-50);
+  border-color: var(--neutral-50);
 }

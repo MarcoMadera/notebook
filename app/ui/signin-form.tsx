@@ -16,7 +16,7 @@ export function SigninForm(): ReactElement {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <form action={action} className={styles.form}>
+    <form action={action} className={styles.form} noValidate>
       <div>
         <label htmlFor="email">Email address</label>
         <TextInput
