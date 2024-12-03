@@ -8,10 +8,12 @@ import { Google } from "../ui/icons";
 import { SigninForm } from "../ui/signin-form";
 
 import Button from "@/components/Button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function LoginPage(): ReactElement {
   return (
     <AuthLayout>
+      <ThemeToggle />
       <h1 className="text-preset-1">Welcome to notes</h1>
       <p className="text-preset-5">Please log in to continue</p>
       <SigninForm />
