@@ -1,3 +1,24 @@
+:root[data-theme="light"] {
+  --button-secondary-background-color: var(--neutral-100);
+  --button-secondary-border-color: var(--neutral-100);
+  --button-border-hover-background-color: var(--neutral-100);
+  --button-border-hover-border-color: var(--neutral-100);
+  --button-border-focus-border-color: var(--neutral-950);
+  --button-border-hover-color: var(--neutral-600);
+  --button-focus-box-shadow-color-1: var(--neutral-0);
+  --button-focus-box-shadow-color-2: var(--neutral-400);
+}
+:root[data-theme="dark"] {
+  --button-secondary-background-color: var(--neutral-500);
+  --button-secondary-border-color: var(--neutral-500);
+  --button-border-hover-background-color: var(--neutral-800);
+  --button-border-hover-border-color: var(--neutral-600);
+  --button-border-focus-border-color: var(--neutral-300);
+  --button-border-hover-color: var(--neutral-0);
+  --button-focus-box-shadow-color-1: var(--neutral-950);
+  --button-focus-box-shadow-color-2: var(--neutral-600);
+}
+
 .button {
   display: flex;
   flex-direction: row;
@@ -24,8 +45,8 @@
 }
 
 .button.secondary {
-  background-color: var(--neutral-100);
-  border-color: var(--neutral-100);
+  background-color: var(--button-secondary-background-color);
+  border-color: var(--button-secondary-border-color);
   color: var(--neutral-600);
 }
 
@@ -42,20 +63,20 @@
 }
 
 .button.border {
-  background-color: var(--neutral-0);
+  background-color: transparent;
   border-color: var(--neutral-300);
-  color: var(--neutral-950);
+  color: inherit;
 }
 
 .button.border:hover {
-  background-color: var(--neutral-100);
-  border-color: var(--neutral-100);
-  color: var(--neutral-600);
+  background-color: var(--button-border-hover-background-color);
+  border-color: var(--button-border-hover-border-color);
+  color: var(--button-border-hover-color);
 }
 
 .button.border:focus {
-  border-color: var(--neutral-950);
-  color: var(--neutral-950);
+  border-color: var(--button-border-focus-border-color);
+  color: inherit;
 }
 
 .button.danger {
@@ -72,8 +93,8 @@
 .button:focus {
   outline: none;
   box-shadow:
-    0px 0px 0px 2px var(--neutral-0),
-    0px 0px 0px 4px var(--neutral-400);
+    0px 0px 0px 2px var(--button-focus-box-shadow-color-1),
+    0px 0px 0px 4px var(--button-focus-box-shadow-color-2);
 }
 
 .button:disabled {

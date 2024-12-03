@@ -2,6 +2,7 @@
 
 import { ReactElement, useActionState, useState } from "react";
 
+import Link from "next/link";
 import { useFormStatus } from "react-dom";
 
 import { HidePassword, ShowPassword } from "./icons";
@@ -18,8 +19,8 @@ export function SigninForm(): ReactElement {
   return (
     <form action={action} className={styles.form} noValidate>
       <div>
-        <label htmlFor="email">Email address</label>
         <TextInput
+          label="Email address"
           id="email"
           name="email"
           type="email"
@@ -30,9 +31,9 @@ export function SigninForm(): ReactElement {
       </div>
 
       <div>
-        <label htmlFor="password">Password</label>
         <TextInput
           type={showPassword ? "text" : "password"}
+          label="Password"
           id="password"
           name="password"
           rightIcon={showPassword ? <ShowPassword /> : <HidePassword />}
@@ -41,7 +42,7 @@ export function SigninForm(): ReactElement {
           hint={state?.errors?.password}
           error={!!state?.errors?.password}
         />
-        <a href="./forgot">Forgot</a>
+        <Link href="./forgot">Forgot</Link>
       </div>
       <SubmitButton />
 

@@ -5,7 +5,7 @@
   --hr-border-color: var(--neutral-800);
 }
 
-.hr {
+.divider {
   border: 1px solid var(--hr-border-color);
   border-bottom: 0px;
   border-left: 0px;
