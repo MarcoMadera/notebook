@@ -1,4 +1,9 @@
-import { type InputHTMLAttributes, ReactElement, useRef } from "react";
+import {
+  type InputHTMLAttributes,
+  ReactElement,
+  useEffect,
+  useRef,
+} from "react";
 
 import { Info } from "./icons";
 import styles from "./Input.module.css";
@@ -13,6 +18,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   onLeftIconClick?: () => void;
   leftIconAriaLabel?: string;
   rightIconAriaLabel?: string;
+  labelAction?: React.ReactNode;
 }
 
 const TextInput = ({
@@ -26,9 +32,22 @@ const TextInput = ({
   onLeftIconClick,
   leftIconAriaLabel,
   rightIconAriaLabel,
+  labelAction,
   ...props
 }: InputProps): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const labelActionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (labelActionRef.current && containerRef.current) {
+      const width = labelActionRef.current.offsetWidth;
+      containerRef.current.style.setProperty(
+        "--label-action-width",
+        `${width}px`
+      );
+    }
+  }, [labelAction]);
 
   const handleInteraction = (handler?: () => void) => {
     if (!handler) {
@@ -46,12 +65,15 @@ const TextInput = ({
   };
 
   return (
-    <div className={styles.container}>
-      {label && (
-        <label className={`text-preset-4 ${styles.label}`} htmlFor={props.id}>
-          {label}
-        </label>
-      )}
+    <div className={styles.container} ref={containerRef}>
+      <div className={styles.labelContainer}>
+        {label && (
+          <label className={`text-preset-4 ${styles.label}`} htmlFor={props.id}>
+            {label}
+          </label>
+        )}
+        {!label && <div />}
+      </div>
       <div
         className={`
           ${styles.inputWrapper}
@@ -92,6 +114,14 @@ const TextInput = ({
           </button>
         )}
       </div>
+      {labelAction && (
+        <div
+          className={`${styles.labelAction} text-preset-4 ${styles.label}`}
+          ref={labelActionRef}
+        >
+          {labelAction}
+        </div>
+      )}
       {hint && (
         <div className={styles.errorContainer}>
           {typeof hint === "string" ? (
@@ -101,7 +131,7 @@ const TextInput = ({
               <Info /> {hint}
             </span>
           ) : (
-            <ul className={`${styles.errorList} `}>
+            <ul className={`${styles.errorList}`}>
               {hint.map((msg, index) => (
                 <li
                   key={index}
