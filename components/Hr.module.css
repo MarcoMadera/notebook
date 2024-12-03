@@ -1,0 +1,13 @@
+:root[data-theme="light"] {
+  --hr-border-color: var(--neutral-200);
+}
+:root[data-theme="dark"] {
+  --hr-border-color: var(--neutral-800);
+}
+
+.hr {
+  border: 1px solid var(--hr-border-color);
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+}

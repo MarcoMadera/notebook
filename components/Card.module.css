@@ -1,0 +1,22 @@
+:root[data-theme="light"] {
+  --card-background: var(--neutral-0);
+  --card-border-color: var(--neutral-200);
+}
+:root[data-theme="dark"] {
+  --card-background: var(--neutral-950);
+  --card-border-color: var(--neutral-800);
+}
+
+:root[data-theme="light"] .Card {
+  box-shadow: var(--shadow-small);
+}
+
+.Card {
+  background: var(--card-background);
+  border: 1px solid var(--card-border-color);
+  border-radius: var(--radius-16);
+  width: 100%;
+  gap: var(--spacing-200);
+  display: flex;
+  flex-direction: column;
+}
