@@ -22,10 +22,26 @@
 .container {
   display: flex;
   flex-direction: column;
+  position: relative;
+  --label-action-width: 0px;
 }
 
 .label {
   color: inherit;
+}
+
+.labelContainer {
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - var(--label-action-width, 0));
+  align-items: center;
+}
+
+.labelAction {
+  position: absolute;
+  top: 0;
+  right: 0;
+  white-space: nowrap;
 }
 
 .inputWrapper {

@@ -41,8 +41,8 @@ export function SigninForm(): ReactElement {
           placeholder="Enter password"
           hint={state?.errors?.password}
           error={!!state?.errors?.password}
+          labelAction={<Link href="./forgot">Forgot</Link>}
         />
-        <Link href="./forgot">Forgot</Link>
       </div>
       <SubmitButton />
 
