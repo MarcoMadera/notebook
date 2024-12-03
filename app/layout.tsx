@@ -3,7 +3,10 @@ import { ReactElement } from "react";
 import type { Metadata } from "next";
 
 import localFont from "next/font/local";
+import { cookies } from "next/headers";
 
+import { ThemeProvider } from "@/contexts/ThemeContext";
+import { validateTheme } from "@/utils";
 import "./globals.css";
 
 const inter = localFont({
@@ -27,17 +30,20 @@ export const metadata: Metadata = {
   description: "Taking notes",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>): ReactElement {
+}>): Promise<ReactElement> {
+  const cookieStore = await cookies();
+  const theme = validateTheme(cookieStore.get("theme")?.value);
+
   return (
-    <html lang="en">
+    <html lang="en" data-theme={theme}>
       <body
         className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable}`}
       >
-        {children}
+        <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
       </body>
     </html>
   );

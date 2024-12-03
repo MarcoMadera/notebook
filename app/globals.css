@@ -1,6 +1,11 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root[data-theme="light"] {
+  --background: var(--neutral-0);
+  --foreground: var(--neutral-800);
+}
+
+:root[data-theme="dark"] {
+  --background: var(--neutral-800);
+  --foreground: var(--neutral-0);
 }
 
 :root {

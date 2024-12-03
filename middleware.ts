@@ -5,7 +5,15 @@ import { updateSession } from "@/utils/supabase/middleware";
 export async function middleware(
   request: NextRequest
 ): Promise<NextResponse<unknown>> {
-  return await updateSession(request);
+  const response = await updateSession(request);
+
+  if (!request.cookies.has("theme")) {
+    const prefersDark =
+      request.headers.get("sec-ch-prefers-color-scheme") === "dark";
+    response.cookies.set("theme", prefersDark ? "dark" : "light");
+  }
+
+  return response;
 }
 
 export const config = {
