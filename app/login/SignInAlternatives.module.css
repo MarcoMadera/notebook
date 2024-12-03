@@ -1,0 +1,12 @@
+:root[data-theme="light"] {
+  --signInAlternatives-text-color: var(--neutral-600);
+}
+:root[data-theme="dark"] {
+  --signInAlternatives-text-color: var(--neutral-300);
+}
+
+.SignInAlternatives-text {
+  color: var(--signInAlternatives-text-color);
+  margin-top: var(--spacing-100);
+  margin-bottom: var(--spacing-200);
+}

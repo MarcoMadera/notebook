@@ -1,8 +1,15 @@
-.alignCenter {
-  text-align: center;
+:root[data-theme="light"] {
+  --secondary-color-text: var(--neutral-600);
+}
+:root[data-theme="dark"] {
+  --secondary-color-text: var(--neutral-300);
 }
 
 .headerContainer {
   display: grid;
   gap: 8px;
+}
+
+.headerContainer p {
+  color: var(--secondary-color-text);
 }

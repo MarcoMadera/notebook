@@ -14,10 +14,10 @@ export function AuthHeader({
 }: Readonly<Props>): ReactElement {
   return (
     <>
-      <div className={styles.alignCenter}>
+      <div className="alignCenter">
         <Logo />
       </div>
-      <div className={`${styles.headerContainer} ${styles.alignCenter}`}>
+      <div className={`${styles.headerContainer} alignCenter`}>
         <h1 className="text-preset-1">{headeLine}</h1>
         <p className="text-preset-5">{secondaryHeadLine}</p>
       </div>

@@ -1,0 +1,10 @@
+:root[data-theme="light"] {
+  --signUpPrompt-text-color: var(--neutral-600);
+}
+:root[data-theme="dark"] {
+  --signUpPrompt-text-color: var(--neutral-300);
+}
+
+.SignUpPrompt-text span {
+  color: var(--signUpPrompt-text-color);
+}

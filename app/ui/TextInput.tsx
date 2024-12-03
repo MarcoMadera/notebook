@@ -48,7 +48,9 @@ const TextInput = ({
   return (
     <div className={styles.container}>
       {label && (
-        <label className={`text-preset-4 ${styles.label}`}>{label}</label>
+        <label className={`text-preset-4 ${styles.label}`} htmlFor={props.id}>
+          {label}
+        </label>
       )}
       <div
         className={`

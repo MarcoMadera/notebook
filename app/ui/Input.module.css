@@ -1,10 +1,31 @@
+:root[data-theme="light"] {
+  --input-hover-background-color: var(--neutral-50);
+  --input-border-color: var(--neutral-300);
+  --input-disabled-border-color: var(--neutral-300);
+  --input-focus-border-color: var(--neutral-950);
+  --input-focus-box-shadow-color-1: var(--neutral-0);
+  --input-focus-box-shadow-color-2: var(--neutral-500);
+  --input-disabled-background-color: var(--neutral-50);
+  --input-disabled-color: var(--neutral-300);
+}
+:root[data-theme="dark"] {
+  --input-hover-background-color: var(--neutral-800);
+  --input-border-color: var(--neutral-600);
+  --input-disabled-border-color: transparent;
+  --input-focus-border-color: var(--neutral-600);
+  --input-focus-box-shadow-color-1: var(--neutral-950);
+  --input-focus-box-shadow-color-2: var(--neutral-600);
+  --input-disabled-background-color: var(--neutral-800);
+  --input-disabled-color: var(--neutral-600);
+}
+
 .container {
   display: flex;
   flex-direction: column;
 }
 
 .label {
-  color: var(--neutral-950);
+  color: inherit;
 }
 
 .inputWrapper {
@@ -16,34 +37,38 @@
 }
 
 .input {
+  background-color: transparent;
+  color: inherit;
   width: 100%;
   padding: var(--spacing-150) var(--spacing-200);
-  border: 1px solid var(--neutral-300);
+  border: 1px solid var(--input-border-color);
   border-radius: var(--radius-8);
   outline: none;
   transition: all 0.2s;
 }
 
 .inputWrapper:hover .input {
-  background-color: var(--neutral-50);
+  background-color: var(--input-hover-background-color);
 }
 
 .input:focus,
 .inputWrapper:has(> *:focus) .input {
-  border-color: var(--neutral-950);
+  border-color: var(--input-focus-border-color);
   box-shadow:
-    0px 0px 0px 2px var(--neutral-0),
-    0px 0px 0px 4px var(--neutral-500);
+    0px 0px 0px 2px var(--input-focus-box-shadow-color-1),
+    0px 0px 0px 4px var(--input-focus-box-shadow-color-2);
 }
 
 .inputWrapper:has(> .input:disabled),
 .input:disabled,
 .input:disabled::placeholder {
-  color: var(--neutral-300);
+  color: var(--input-disabled-color);
 }
 
 .input:disabled {
-  background-color: var(--neutral-50);
+  background-color: var(--input-disabled-background-color);
+  border-color: var(--input-disabled-border-color);
+  cursor: not-allowed;
 }
 
 .hasLeftIcon .input {
