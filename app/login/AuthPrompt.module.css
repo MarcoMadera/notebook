@@ -5,6 +5,6 @@
   --signUpPrompt-text-color: var(--neutral-300);
 }
 
-.SignUpPrompt-text span {
+.AuthPrompt-text span {
   color: var(--signUpPrompt-text-color);
 }
