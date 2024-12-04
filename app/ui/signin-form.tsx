@@ -36,6 +36,7 @@ export function SigninForm(): ReactElement {
         rightIcon={showPassword ? <HidePassword /> : <ShowPassword />}
         onRightIconClick={() => setShowPassword(!showPassword)}
         placeholder="Enter password"
+        autoComplete="current-password"
         hint={state?.errors?.password}
         error={!!state?.errors?.password}
         labelAction={

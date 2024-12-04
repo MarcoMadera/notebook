@@ -4,41 +4,37 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
-  ForgotPasswordSchema,
-  FormState,
-  SignupFormSchema,
-  UpdatePasswordSchema,
+  FieldErrors,
+  FormError,
+  validateForgotPasswordForm,
+  validateSigninForm,
+  validateSignupForm,
+  validateUpdatePasswordForm,
 } from "@/app/lib/definitions";
 
 import { createClient } from "@/utils/supabase/server";
 
+export type FormState =
+  | {
+      errors?: FieldErrors;
+      message?: string;
+    }
+  | undefined;
+
 export async function login(
   _: FormState,
   formData: FormData
-): Promise<{
-  errors?: {
-    email?: string[];
-    password?: string[];
-  };
-  message?: string;
-}> {
+): Promise<FormState> {
   const supabase = await createClient();
-  const {
-    data: credentials,
-    error: credentialError,
-    success,
-  } = SignupFormSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
 
-  if (!success) {
+  const validated = validateSigninForm(formData);
+  if ("errors" in validated) {
     return {
-      errors: credentialError.flatten().fieldErrors,
+      errors: validated.errors,
     };
   }
 
-  const { error } = await supabase.auth.signInWithPassword(credentials);
+  const { error } = await supabase.auth.signInWithPassword(validated.data);
 
   if (error) {
     if (error.code === "invalid_credentials") {
@@ -64,31 +60,18 @@ export async function login(
 export async function signup(
   _: FormState,
   formData: FormData
-): Promise<{
-  errors?: {
-    email?: string[];
-    password?: string[];
-  };
-  message?: string;
-}> {
+): Promise<FormState> {
   const supabase = await createClient();
 
-  const {
-    data: credentials,
-    error: credentialError,
-    success,
-  } = SignupFormSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+  const validated = validateSignupForm(formData);
 
-  if (!success) {
+  if ("errors" in validated) {
     return {
-      errors: credentialError.flatten().fieldErrors,
+      errors: validated.errors,
     };
   }
 
-  const { error } = await supabase.auth.signUp(credentials);
+  const { error } = await supabase.auth.signUp(validated.data);
 
   if (error) {
     return {
@@ -105,28 +88,22 @@ export async function forgot(
   formData: FormData
 ): Promise<{
   errors?: {
-    email?: string[];
+    email?: FormError[];
   };
   message?: string;
 }> {
   const supabase = await createClient();
 
-  const {
-    data: credentials,
-    error: credentialError,
-    success,
-  } = ForgotPasswordSchema.safeParse({
-    email: formData.get("email"),
-  });
+  const validated = validateForgotPasswordForm(formData);
 
-  if (!success) {
+  if ("errors" in validated) {
     return {
-      errors: credentialError.flatten().fieldErrors,
+      errors: validated.errors,
     };
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(
-    credentials.email,
+    validated.data.email,
     {
       redirectTo: "http://localhost:3000/auth/callback?next=/update-password",
     }
@@ -147,28 +124,22 @@ export async function updatePassword(
   formData: FormData
 ): Promise<{
   errors?: {
-    password?: string[];
+    password?: FormError[];
   };
   message?: string;
 }> {
   const supabase = await createClient();
 
-  const {
-    data: credentials,
-    error: credentialError,
-    success,
-  } = UpdatePasswordSchema.safeParse({
-    password: formData.get("password"),
-  });
+  const validated = validateUpdatePasswordForm(formData);
 
-  if (!success) {
+  if ("errors" in validated) {
     return {
-      errors: credentialError.flatten().fieldErrors,
+      errors: validated.errors,
     };
   }
 
   const { error } = await supabase.auth.updateUser({
-    password: credentials.password,
+    password: validated.data.password,
   });
 
   if (error) {
