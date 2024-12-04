@@ -18,6 +18,12 @@
   --input-disabled-background-color: var(--neutral-800);
   --input-disabled-color: var(--neutral-600);
 }
+:root[data-theme="dark"] .input {
+  color-scheme: dark;
+}
+:root[data-theme="light"] .input {
+  color-scheme: light;
+}
 
 .container {
   display: flex;
@@ -39,7 +45,7 @@
 
 .labelAction {
   position: absolute;
-  top: 0;
+  top: var(--spacing-025);
   right: 0;
   white-space: nowrap;
 }
@@ -62,7 +68,10 @@
   outline: none;
   transition: all 0.2s;
 }
-
+.input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--input-hover-background-color) inset;
+  color: inherit;
+}
 .inputWrapper:hover .input {
   background-color: var(--input-hover-background-color);
 }

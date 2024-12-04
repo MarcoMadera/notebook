@@ -2,7 +2,6 @@
 
 import { ReactElement, useActionState, useState } from "react";
 
-import Link from "next/link";
 import { useFormStatus } from "react-dom";
 
 import { HidePassword, ShowPassword } from "./icons";
@@ -10,6 +9,7 @@ import styles from "./SignUpForm.module.css";
 import TextInput from "./TextInput";
 
 import { login } from "@/app/actions/auth";
+import { ALink } from "@/components/ALink";
 import Button from "@/components/Button";
 
 export function SigninForm(): ReactElement {
@@ -41,7 +41,11 @@ export function SigninForm(): ReactElement {
           placeholder="Enter password"
           hint={state?.errors?.password}
           error={!!state?.errors?.password}
-          labelAction={<Link href="./forgot">Forgot</Link>}
+          labelAction={
+            <ALink href="./forgot" variant="action">
+              Forgot
+            </ALink>
+          }
         />
       </div>
       <SubmitButton />

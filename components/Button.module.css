@@ -7,6 +7,9 @@
   --button-border-hover-color: var(--neutral-600);
   --button-focus-box-shadow-color-1: var(--neutral-0);
   --button-focus-box-shadow-color-2: var(--neutral-400);
+  --button-disabled-background-color: var(--neutral-50);
+  --button-disabled-border-color: var(--neutral-50);
+  --button-disabled-color: var(--neutral-300);
 }
 :root[data-theme="dark"] {
   --button-secondary-background-color: var(--neutral-500);
@@ -17,6 +20,9 @@
   --button-border-hover-color: var(--neutral-0);
   --button-focus-box-shadow-color-1: var(--neutral-950);
   --button-focus-box-shadow-color-2: var(--neutral-600);
+  --button-disabled-background-color: var(--neutral-800);
+  --button-disabled-border-color: var(--neutral-800);
+  --button-disabled-color: var(--neutral-400);
 }
 
 .button {
@@ -98,13 +104,14 @@
 }
 
 .button:disabled {
-  background-color: var(--neutral-50);
-  color: var(--neutral-300);
-  border-color: var(--neutral-50);
+  background-color: var(--button-disabled-background-color);
+  border-color: var(--button-disabled-border-color);
+  color: var(--button-disabled-color);
   cursor: not-allowed;
 }
 
 .button:disabled:hover {
-  background-color: var(--neutral-50);
-  border-color: var(--neutral-50);
+  background-color: var(--button-disabled-background-color);
+  border-color: var(--button-disabled-border-color);
+  color: var(--button-disabled-color);
 }
