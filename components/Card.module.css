@@ -20,3 +20,17 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Tablet (768px) */
+@media (max-width: 1439px) and (min-width: 769px) {
+  .Card {
+    padding: var(--spacing-600) var(--spacing-400);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .Card {
+    padding: var(--spacing-500) var(--spacing-200);
+  }
+}

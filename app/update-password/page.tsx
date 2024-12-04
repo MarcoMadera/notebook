@@ -1,13 +1,21 @@
 import { ReactElement } from "react";
 
+import AuthLayout from "../layouts/auth-layout";
 import { UpdatePassWordForm } from "../ui/update-password-form";
+
+import { AuthHeader } from "@/components/AuthHeader";
+import Card from "@/components/Card";
 
 export default function UpdatePassword(): ReactElement {
   return (
-    <div>
-      <h1>Reset Your Password</h1>
-      <p>Choose a new password to secure your account.</p>
-      <UpdatePassWordForm />
-    </div>
+    <AuthLayout>
+      <Card>
+        <AuthHeader
+          headeLine="Reset Your Password"
+          secondaryHeadLine="Choose a new password to secure your account."
+        />
+        <UpdatePassWordForm />
+      </Card>
+    </AuthLayout>
   );
 }

@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
+import { AuthPrompt } from "./AuthPrompt";
 import { SignInAlternatives } from "./SignInAlternatives";
-import { SignUpPrompt } from "./SignUpPrompt";
 import AuthLayout from "../layouts/auth-layout";
 import { SigninForm } from "../ui/signin-form";
 
@@ -21,7 +21,11 @@ export default function LoginPage(): ReactElement {
         <Divider />
         <SignInAlternatives />
         <Divider />
-        <SignUpPrompt />
+        <AuthPrompt
+          message="No account yet?"
+          linkText="Sign up"
+          linkHref="/signup"
+        />
       </Card>
     </AuthLayout>
   );

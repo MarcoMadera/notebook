@@ -7,6 +7,7 @@
   --input-focus-box-shadow-color-2: var(--neutral-500);
   --input-disabled-background-color: var(--neutral-50);
   --input-disabled-color: var(--neutral-300);
+  --input-hint-color: var(--neutral-600);
 }
 :root[data-theme="dark"] {
   --input-hover-background-color: var(--neutral-800);
@@ -17,6 +18,7 @@
   --input-focus-box-shadow-color-2: var(--neutral-600);
   --input-disabled-background-color: var(--neutral-800);
   --input-disabled-color: var(--neutral-600);
+  --input-hint-color: var(--neutral-400);
 }
 :root[data-theme="dark"] .input {
   color-scheme: dark;
@@ -54,7 +56,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin: var(--spacing-075) var(--spacing-0);
+  margin: var(--spacing-075) var(--spacing-0) var(--spacing-0);
   cursor: text;
 }
 
@@ -161,7 +163,8 @@
 }
 
 .hint {
-  color: var(--neutral-600);
+  margin-top: var(--spacing-075);
+  color: var(--input-hint-color);
   display: flex;
   align-items: center;
   gap: var(--spacing-100);

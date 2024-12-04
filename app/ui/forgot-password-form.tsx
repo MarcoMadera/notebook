@@ -4,22 +4,29 @@ import { ReactElement, useActionState } from "react";
 
 import { useFormStatus } from "react-dom";
 
+import TextInput from "./TextInput";
+
 import { forgot } from "@/app/actions/auth";
+import { AuthForm } from "@/components/AuthForm";
+import Button from "@/components/Button";
 
 export function ForgotPassWordForm(): ReactElement {
   const [state, action] = useActionState(forgot, undefined);
 
   return (
-    <form action={action}>
-      <div>
-        <label htmlFor="email">Email address</label>
-        <input id="email" name="email" placeholder="email@example.com" />
-      </div>
-      {state?.errors?.email && <p>{state.errors.email}</p>}
+    <AuthForm action={action}>
+      <TextInput
+        label="Email address"
+        id="email"
+        name="email"
+        type="email"
+        placeholder="email@example.com"
+        hint={state?.errors?.email}
+        error={!!state?.errors?.email}
+      />
       <SubmitButton />
-
       {state?.message && <p>{state.message}</p>}
-    </form>
+    </AuthForm>
   );
 }
 
@@ -27,8 +34,8 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} type="submit">
+    <Button disabled={pending} type="submit" variant="primary">
       Send Request Link
-    </button>
+    </Button>
   );
 }

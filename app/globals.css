@@ -444,7 +444,7 @@
 
   /* Mobile (375px) */
   --mobile-width: 375px;
-  --mobile-column: 24px;
+  --mobile-column: 28.88px;
   --mobile-gutter: 16px;
   --mobile-columns: 8;
 }

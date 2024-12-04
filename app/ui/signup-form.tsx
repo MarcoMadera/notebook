@@ -1,40 +1,45 @@
 "use client";
 
-import { ReactElement, useActionState } from "react";
+import { ReactElement, useActionState, useState } from "react";
 
 import { useFormStatus } from "react-dom";
 
+import { HidePassword, ShowPassword } from "./icons";
 import styles from "./SignUpForm.module.css";
 
+import TextInput from "./TextInput";
+
 import { signup } from "@/app/actions/auth";
+import { AuthForm } from "@/components/AuthForm";
+import Button from "@/components/Button";
 
 export function SignupForm(): ReactElement {
   const [state, action] = useActionState(signup, undefined);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <form action={action} className={styles.form}>
-      <div>
-        <label htmlFor="email">Email address</label>
-        <input id="email" name="email" placeholder="email@example.com" />
-      </div>
-      {state?.errors?.email && <p>{state.errors.email}</p>}
-
-      <div>
-        <label htmlFor="password">Password</label>
-        <input id="password" name="password" type="password" />
-      </div>
-      {state?.errors?.password && (
-        <div>
-          <p>Password must:</p>
-          <ul>
-            {state.errors.password.map((error) => (
-              <li key={error}>- {error}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+    <AuthForm action={action} className={styles.form}>
+      <TextInput
+        label="Email address"
+        id="email"
+        name="email"
+        type="email"
+        placeholder="email@example.com"
+        hint={state?.errors?.email}
+        error={!!state?.errors?.email}
+      />
+      <TextInput
+        type={showPassword ? "text" : "password"}
+        label="Password"
+        id="password"
+        name="password"
+        rightIcon={showPassword ? <HidePassword /> : <ShowPassword />}
+        onRightIconClick={() => setShowPassword(!showPassword)}
+        hint={state?.errors?.password}
+        error={!!state?.errors?.password}
+      />
       <SubmitButton />
-    </form>
+    </AuthForm>
   );
 }
 
@@ -42,8 +47,8 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} type="submit">
+    <Button disabled={pending} type="submit" variant="primary">
       Sign Up
-    </button>
+    </Button>
   );
 }

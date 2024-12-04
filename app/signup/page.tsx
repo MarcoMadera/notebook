@@ -1,23 +1,32 @@
 import { ReactElement } from "react";
 
-import Link from "next/link";
-
-import { handleSignInWithGoogle } from "../actions/auth";
+import AuthLayout from "../layouts/auth-layout";
+import { AuthPrompt } from "../login/AuthPrompt";
+import { SignInAlternatives } from "../login/SignInAlternatives";
 import { SignupForm } from "../ui/signup-form";
+
+import { AuthHeader } from "@/components/AuthHeader";
+import Card from "@/components/Card";
+import { Divider } from "@/components/Divider";
 
 export default function LoginPage(): ReactElement {
   return (
-    <div>
-      <h1>Create Your Account</h1>
-      <p>Sign up to start organizing your notes and boost your productivity.</p>
-      <SignupForm />
-      <form>
-        <p>Or log in with:</p>
-        <button formAction={handleSignInWithGoogle}>Google</button>
-        <p>
-          Already have an account? <Link href="/login">Login</Link>
-        </p>
-      </form>
-    </div>
+    <AuthLayout>
+      <Card>
+        <AuthHeader
+          headeLine="Create Your Account"
+          secondaryHeadLine="Sign up to start organizing your notes and boost your productivity."
+        />
+        <SignupForm />
+        <Divider />
+        <SignInAlternatives />
+        <Divider />
+        <AuthPrompt
+          message="Already have an account?"
+          linkText="Login"
+          linkHref="/login"
+        />
+      </Card>
+    </AuthLayout>
   );
 }

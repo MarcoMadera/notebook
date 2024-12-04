@@ -16,7 +16,7 @@ const Button = ({
   return (
     <button
       {...props}
-      className={`text-preset-4 ${style.button} ${style[variant]}`}
+      className={`${style.button} ${style[variant]} ${variant === "primary" ? "text-preset-3" : "text-preset-4"}`}
     >
       {children}
     </button>
