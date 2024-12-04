@@ -18,6 +18,7 @@ export type FormState =
   | {
       errors?: FieldErrors;
       message?: string;
+      data: ReturnType<typeof validateSignupForm>["formValues"];
     }
   | undefined;
 
@@ -26,10 +27,15 @@ export async function login(
   formData: FormData
 ): Promise<FormState> {
   const supabase = await createClient();
+  const data = Object.fromEntries(formData) as Record<
+    keyof FieldErrors,
+    string
+  >;
 
   const validated = validateSigninForm(formData);
   if ("errors" in validated) {
     return {
+      data,
       errors: validated.errors,
     };
   }
@@ -39,16 +45,19 @@ export async function login(
   if (error) {
     if (error.code === "invalid_credentials") {
       return {
+        data,
         message: "Invalid credentials",
       };
     }
     if (error.code === "email_not_confirmed") {
       return {
+        data,
         message: "Please confirm your email to be able to sign in",
       };
     }
 
     return {
+      data,
       message: "An error occurred while sign in.",
     };
   }
@@ -66,15 +75,14 @@ export async function signup(
   const validated = validateSignupForm(formData);
 
   if ("errors" in validated) {
-    return {
-      errors: validated.errors,
-    };
+    return { data: validated.formValues, errors: validated.errors };
   }
 
   const { error } = await supabase.auth.signUp(validated.data);
 
   if (error) {
     return {
+      data: validated.formValues,
       message: "An error occurred while creating your account.",
     };
   }
@@ -90,6 +98,7 @@ export async function forgot(
   errors?: {
     email?: FormError[];
   };
+  data: ReturnType<typeof validateForgotPasswordForm>["formValues"];
   message?: string;
 }> {
   const supabase = await createClient();
@@ -98,6 +107,7 @@ export async function forgot(
 
   if ("errors" in validated) {
     return {
+      data: validated.formValues,
       errors: validated.errors,
     };
   }
@@ -111,11 +121,13 @@ export async function forgot(
 
   if (error) {
     return {
+      data: validated.formValues,
       message: "An error occurred.",
     };
   }
 
   return {
+    data: validated.formValues,
     message: "An email was sent to your email.",
   };
 }
@@ -126,6 +138,7 @@ export async function updatePassword(
   errors?: {
     password?: FormError[];
   };
+  data: ReturnType<typeof validateUpdatePasswordForm>["formValues"];
   message?: string;
 }> {
   const supabase = await createClient();
@@ -133,9 +146,7 @@ export async function updatePassword(
   const validated = validateUpdatePasswordForm(formData);
 
   if ("errors" in validated) {
-    return {
-      errors: validated.errors,
-    };
+    return { data: validated.formValues, errors: validated.errors };
   }
 
   const { error } = await supabase.auth.updateUser({
@@ -143,14 +154,10 @@ export async function updatePassword(
   });
 
   if (error) {
-    return {
-      message: "An error occurred.",
-    };
+    return { data: validated.formValues, message: "An error occurred." };
   }
 
-  return {
-    message: "Password updated.",
-  };
+  return { data: validated.formValues, message: "Password updated." };
 }
 
 export async function handleSignInWithGoogle(_: FormData): Promise<void> {

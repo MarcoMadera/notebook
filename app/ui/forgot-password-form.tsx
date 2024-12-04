@@ -14,10 +14,14 @@ export function ForgotPassWordForm(): ReactElement {
   const [state, action] = useActionState(forgot, undefined);
 
   return (
-    <AuthForm action={action}>
+    <AuthForm action={action} noValidate>
       <TextInput
         label="Email address"
+        defaultValue={
+          typeof state?.data.email === "string" ? state?.data.email : ""
+        }
         id="email"
+        autoComplete="email"
         name="email"
         type="email"
         placeholder="email@example.com"
