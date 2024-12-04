@@ -7,10 +7,11 @@ import {
 
 import { Info } from "./icons";
 import styles from "./Input.module.css";
+import { FormError } from "../lib/definitions";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  hint?: string | string[];
+  hint?: string | FormError[];
   error?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -132,12 +133,12 @@ const TextInput = ({
             </span>
           ) : (
             <ul className={`${styles.errorList}`}>
-              {hint.map((msg, index) => (
+              {hint.map((formError) => (
                 <li
-                  key={index}
+                  key={formError.id}
                   className={`text-preset-6 ${styles.hint} ${error ? styles.errorHint : ""} ${props.disabled ? styles.disabled : ""}`}
                 >
-                  <Info /> {msg}
+                  <Info /> {formError.message}
                 </li>
               ))}
             </ul>
