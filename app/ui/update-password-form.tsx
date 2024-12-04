@@ -17,12 +17,17 @@ export function UpdatePassWordForm(): ReactElement {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <AuthForm action={action}>
+    <AuthForm action={action} noValidate>
       <TextInput
         type={showPassword ? "text" : "password"}
         label="New Password"
         id="password"
         name="password"
+        autoComplete="new-password"
+        defaultValue={
+          typeof state?.data.password === "string" ? state?.data.password : ""
+        }
+        aria-autocomplete="list"
         rightIcon={showPassword ? <HidePassword /> : <ShowPassword />}
         onRightIconClick={() => setShowPassword(!showPassword)}
         hint={
@@ -37,6 +42,12 @@ export function UpdatePassWordForm(): ReactElement {
         label="Confirm New Password"
         id="confirm-password"
         name="confirm-password"
+        autoComplete="new-password"
+        defaultValue={
+          typeof state?.data["confirm-password"] === "string"
+            ? state?.data["confirm-password"]
+            : ""
+        }
         rightIcon={showConfirmPassword ? <HidePassword /> : <ShowPassword />}
         onRightIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
         hint={state?.errors?.password}

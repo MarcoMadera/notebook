@@ -7,7 +7,7 @@ import {
 
 import { Info } from "./icons";
 import styles from "./Input.module.css";
-import { FormError } from "../lib/definitions";
+import { FormError, ValidationType } from "../lib/definitions";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -136,9 +136,10 @@ const TextInput = ({
               {hint.map((formError) => (
                 <li
                   key={formError.id}
-                  className={`text-preset-6 ${styles.hint} ${error ? styles.errorHint : ""} ${props.disabled ? styles.disabled : ""}`}
+                  className={`text-preset-6 ${styles.hint} ${formError.type === ValidationType.Hint ? styles.errorHint : ""} ${props.disabled ? styles.disabled : ""}`}
                 >
-                  <Info /> {formError.message}
+                  {formError.type === ValidationType.Hint ? <Info /> : null}{" "}
+                  {formError.message}
                 </li>
               ))}
             </ul>

@@ -5,7 +5,6 @@ import { ReactElement, useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { HidePassword, ShowPassword } from "./icons";
-import styles from "./SignUpForm.module.css";
 import TextInput from "./TextInput";
 
 import { login } from "@/app/actions/auth";
@@ -18,12 +17,16 @@ export function SigninForm(): ReactElement {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <AuthForm action={action} className={styles.form} noValidate>
+    <AuthForm action={action} noValidate>
       <TextInput
         label="Email address"
         id="email"
         name="email"
+        autoComplete="email"
         type="email"
+        defaultValue={
+          typeof state?.data.email === "string" ? state?.data.email : ""
+        }
         placeholder="Email"
         hint={state?.errors?.email}
         error={!!state?.errors?.email}
@@ -33,6 +36,9 @@ export function SigninForm(): ReactElement {
         label="Password"
         id="password"
         name="password"
+        defaultValue={
+          typeof state?.data.password === "string" ? state?.data.password : ""
+        }
         rightIcon={showPassword ? <HidePassword /> : <ShowPassword />}
         onRightIconClick={() => setShowPassword(!showPassword)}
         placeholder="Enter password"

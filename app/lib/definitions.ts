@@ -1,9 +1,13 @@
 import { z } from "zod";
 
+export enum ValidationType {
+  Hint = "hint",
+  Instruction = "instruction",
+}
 export interface FormError {
   id: string;
   message: string;
-  type: "inline-hint" | "instruction";
+  type: ValidationType;
 }
 export interface FieldErrors {
   email?: FormError[];
@@ -14,52 +18,95 @@ const VALIDATIONS = {
   email: {
     message: "Please enter a valid email address.",
     id: "invalid-email",
-    type: "inline-hint",
+    type: ValidationType.Hint,
+  },
+  passwordInstruction: {
+    id: "password-instruction",
+    message: "Your password must:",
+    type: ValidationType.Instruction,
   },
   passwordLength: {
-    message: "Be at least 8 characters long",
+    messageMulti: "Be at least 8 characters long.",
+    message: "Password must be at least 8 characters long.",
     id: "password-length",
-    type: "inline-hint",
+    type: ValidationType.Hint,
   },
   passwordLetter: {
-    message: "Contain at least one letter.",
+    messageMulti: "Contain at least one letter.",
+    message: "Password must contain at least one letter.",
     id: "password-letter",
-    type: "inline-hint",
+    type: ValidationType.Hint,
   },
   passwordNumber: {
-    message: "Contain at least one number.",
+    messageMulti: "Contain at least one number.",
+    message: "Password must contain at least one number.",
     id: "password-number",
-    type: "inline-hint",
+    type: ValidationType.Hint,
   },
   passwordSpecial: {
-    message: "Contain at least one special character.",
+    messageMulti: "Contain at least one special character.",
+    message: "Password must contain at least one special character",
     id: "password-special",
-    type: "inline-hint",
+    type: ValidationType.Hint,
   },
 };
 
+const createErrorMessage = (
+  errorId: keyof typeof VALIDATIONS,
+  isMulti?: boolean
+) => `error:${errorId}:${isMulti ? "Multi" : ""}`;
+
 const emailSchema = z
   .string()
-  .email({ message: VALIDATIONS.email.message })
+  .email({ message: createErrorMessage("email") })
   .trim();
 const passwordSchema = z
   .string()
-  .min(8, { message: VALIDATIONS.passwordLength.message })
-  .regex(/[a-zA-Z]/, { message: VALIDATIONS.passwordLetter.message })
-  .regex(/\d/, { message: VALIDATIONS.passwordNumber.message })
-  .regex(/[^a-zA-Z0-9]/, { message: VALIDATIONS.passwordSpecial.message })
-  .trim();
+  .trim()
+  .superRefine((val, ctx) => {
+    const errors: (keyof typeof VALIDATIONS)[] = [];
 
-function getErrorConfig(message: string): FormError {
-  const validation = Object.values(VALIDATIONS).find(
-    (v) => v.message === message
-  ) as FormError | undefined;
+    if (val.length < 8) errors.push("passwordLength");
+    if (!/[a-zA-Z]/.test(val)) errors.push("passwordLetter");
+    if (!/\d/.test(val)) errors.push("passwordNumber");
+    if (!/[^a-zA-Z0-9]/.test(val)) errors.push("passwordSpecial");
+
+    if (errors.length === 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: createErrorMessage(errors[0], false),
+      });
+    } else if (errors.length > 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: createErrorMessage("passwordInstruction"),
+      });
+      errors.forEach((error) => {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: createErrorMessage(error, true),
+        });
+      });
+    }
+  });
+
+function parseErrorString(errorString: string): FormError {
+  const [_, errorId, type = ""] = errorString.split(":");
+  const validation = VALIDATIONS[errorId as keyof typeof VALIDATIONS];
+  const isMulti = type === "Multi";
+
+  if (isMulti && "messageMulti" in validation) {
+    return {
+      ...validation,
+      message: validation["messageMulti"],
+    };
+  }
 
   return (
     validation || {
-      id: "unknown-error",
-      message,
-      type: "inline-hint",
+      id: `unknown-${errorId || "error"}`,
+      message: errorString,
+      type: ValidationType.Hint,
     }
   );
 }
@@ -71,12 +118,9 @@ function transformZodErrors<T extends Record<string, any>>(
 
   error.issues.forEach((issue) => {
     const field = issue.path[0] as keyof T;
-    if (field) {
-      if (!fieldErrors[field]) {
-        fieldErrors[field] = [];
-      }
-      fieldErrors[field]?.push(getErrorConfig(issue.message));
-    }
+    if (!field) return;
+    fieldErrors[field] = fieldErrors[field] || [];
+    fieldErrors[field]?.push(parseErrorString(issue.message));
   });
 
   return Object.keys(fieldErrors).length > 0 ? fieldErrors : undefined;
@@ -89,17 +133,19 @@ export function createFormValidator<T extends z.ZodObject<z.ZodRawShape, any>>(
     formData: FormData
   ):
     | {
+        formValues: { [K in keyof z.infer<T>]?: FormDataEntryValue | null };
         errors: Partial<Record<keyof z.TypeOf<T>, FormError[]>> | undefined;
       }
     | {
+        formValues: { [K in keyof z.infer<T>]?: FormDataEntryValue | null };
         data: z.TypeOf<T>;
       } => {
     type SchemaType = z.infer<T>;
     type Shape = T["shape"];
 
-    const formValues: { [K in keyof SchemaType]?: unknown } = {};
-
     type Keys = keyof Shape;
+    const formValues: { [K in keyof SchemaType]?: FormDataEntryValue | null } =
+      {};
     const keys = Object.keys(schema.shape) as Keys[];
 
     keys.forEach((key) => {
@@ -110,11 +156,12 @@ export function createFormValidator<T extends z.ZodObject<z.ZodRawShape, any>>(
 
     if (!result.success) {
       return {
+        formValues: formValues,
         errors: transformZodErrors<SchemaType>(result.error),
       };
     }
 
-    return { data: result.data as SchemaType };
+    return { formValues: formValues, data: result.data as SchemaType };
   };
 }
 
@@ -141,5 +188,6 @@ export const validateForgotPasswordForm = createFormValidator(
 export const validateUpdatePasswordForm = createFormValidator(
   z.object({
     password: passwordSchema,
+    ["confirm-password"]: passwordSchema,
   })
 );
