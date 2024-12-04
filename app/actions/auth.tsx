@@ -27,15 +27,11 @@ export async function login(
   formData: FormData
 ): Promise<FormState> {
   const supabase = await createClient();
-  const data = Object.fromEntries(formData) as Record<
-    keyof FieldErrors,
-    string
-  >;
 
   const validated = validateSigninForm(formData);
   if ("errors" in validated) {
     return {
-      data,
+      data: validated.formValues,
       errors: validated.errors,
     };
   }
@@ -45,19 +41,19 @@ export async function login(
   if (error) {
     if (error.code === "invalid_credentials") {
       return {
-        data,
+        data: validated.formValues,
         message: "Invalid credentials",
       };
     }
     if (error.code === "email_not_confirmed") {
       return {
-        data,
+        data: validated.formValues,
         message: "Please confirm your email to be able to sign in",
       };
     }
 
     return {
-      data,
+      data: validated.formValues,
       message: "An error occurred while sign in.",
     };
   }
