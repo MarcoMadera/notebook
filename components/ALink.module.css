@@ -1,0 +1,31 @@
+:root[data-theme="light"] {
+  --action-color: var(--neutral-600);
+  --action-hover-color: var(--blue-500);
+  --anchor-focus-box-shadow-color-1: var(--neutral-0);
+  --anchor-focus-box-shadow-color-2: var(--neutral-500);
+}
+:root[data-theme="dark"] {
+  --action-color: var(--neutral-400);
+  --action-hover-color: var(--blue-500);
+  --anchor-focus-box-shadow-color-1: var(--neutral-950);
+  --anchor-focus-box-shadow-color-2: var(--neutral-600);
+}
+
+.anchor {
+  text-decoration: none;
+}
+.anchor.action {
+  text-decoration: underline;
+  color: var(--action-color);
+  font-family: var(--inter);
+}
+.anchor:hover {
+  color: var(--action-hover-color);
+}
+.anchor:focus {
+  border-radius: var(--radius-4);
+  outline: none;
+  box-shadow:
+    0px 0px 0px 2px var(--anchor-focus-box-shadow-color-1),
+    0px 0px 0px 4px var(--anchor-focus-box-shadow-color-2);
+}

@@ -116,7 +116,7 @@ const TextInput = ({
       </div>
       {labelAction && (
         <div
-          className={`${styles.labelAction} text-preset-4 ${styles.label}`}
+          className={`${styles.labelAction} text-preset-6 ${styles.label}`}
           ref={labelActionRef}
         >
           {labelAction}
