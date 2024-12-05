@@ -66,7 +66,10 @@ const TextInput = ({
   };
 
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div
+      className={`${styles.container} ${label ? styles.hasLabel : ""}`}
+      ref={containerRef}
+    >
       <div className={styles.labelContainer}>
         {label && (
           <label className={`text-preset-4 ${styles.label}`} htmlFor={props.id}>

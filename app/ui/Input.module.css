@@ -56,8 +56,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin: var(--spacing-075) var(--spacing-0) var(--spacing-0);
   cursor: text;
+}
+.hasLabel .inputWrapper {
+  margin-top: var(--spacing-075);
 }
 
 .input {
@@ -99,7 +101,7 @@
 }
 
 .hasLeftIcon .input {
-  padding-left: var(--spacing-500);
+  padding-left: var(--spacing-600);
 }
 
 .hasRightIcon .input {
@@ -131,6 +133,7 @@
 
 .leftIcon {
   left: 0;
+  padding-left: var(--spacing-200);
 }
 
 .rightIcon {
