@@ -11,7 +11,7 @@
 
 .logoContainer {
   text-align: left;
-  padding: var(--spacing-150) 0;
+  padding: var(--spacing-150) var(--spacing-0);
 }
 
 .itemsContainer {
@@ -28,4 +28,5 @@
 
 .heading {
   color: var(--sidebar-navigation-heading-text-color);
+  padding: var(--spacing-0) var(--spacing-050);
 }

@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 import styles from "./page.module.css";
 
+import { PageHeader } from "@/components/PageHeader";
 import { SideBarNavigation } from "@/components/SidebarNavigation";
 import { createClient } from "@/utils/supabase/server";
 
@@ -34,9 +35,7 @@ export default async function Home(): Promise<ReactElement> {
   return (
     <div className={`${styles.page} grid-container grid-container--sidebar`}>
       <SideBarNavigation />
-      <p>Hello {data.user.email}</p>
-      <main className={styles.main}></main>
-      <footer className={styles.footer}></footer>
+      <PageHeader />
     </div>
   );
 }
