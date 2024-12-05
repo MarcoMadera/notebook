@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import {
@@ -21,6 +22,14 @@ export type FormState =
       data: ReturnType<typeof validateSignupForm>["formValues"];
     }
   | undefined;
+
+async function getBaseUrl(): Promise<string> {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+  return baseUrl;
+}
 
 export async function login(
   _: FormState,
@@ -107,11 +116,12 @@ export async function forgot(
       errors: validated.errors,
     };
   }
+  const baseUrl = await getBaseUrl();
 
   const { error } = await supabase.auth.resetPasswordForEmail(
     validated.data.email,
     {
-      redirectTo: "http://localhost:3000/auth/callback?next=/update-password",
+      redirectTo: `${baseUrl}/auth/callback?next=/update-password`,
     }
   );
 
@@ -159,10 +169,12 @@ export async function updatePassword(
 export async function handleSignInWithGoogle(_: FormData): Promise<void> {
   const supabase = await createClient();
 
+  const baseUrl = await getBaseUrl();
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: `${baseUrl}/auth/callback`,
     },
   });
 
