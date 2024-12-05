@@ -1,0 +1,57 @@
+:root[data-theme="light"] {
+  --sidebar-item-background-color: var(--neutral-100);
+  --sidebar-item-color: var(--neutral-700);
+  --sidebar-item-selected-color: var(--neutral-950);
+}
+:root[data-theme="dark"] {
+  --sidebar-item-background-color: var(--neutral-800);
+  --sidebar-item-color: var(--neutral-200);
+  --sidebar-item-selected-color: var(--neutral-0);
+}
+
+.container {
+  padding: calc(var(--spacing-100) + var(--spacing-025)) var(--spacing-150);
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--spacing-100);
+  border-radius: var(--spacing-100);
+  width: 100%;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  justify-content: space-between;
+  grid-template-columns: auto 1fr auto;
+}
+
+.content {
+  width: 100%;
+  text-align: left;
+  align-content: center;
+  height: 73%;
+  color: var(--sidebar-item-color);
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+  display: grid;
+}
+
+.rightIcon {
+  width: 6px;
+  height: 20px;
+  display: grid;
+}
+
+.selected {
+  background-color: var(--sidebar-item-background-color);
+}
+.selected .content {
+  color: var(--sidebar-item-selected-color);
+}
+
+.selected .icon {
+  color: var(--blue-500);
+  display: grid;
+  align-items: center;
+}

@@ -1,0 +1,31 @@
+:root[data-theme="light"] {
+  --sidebar-navigation-heading-text-color: var(--neutral-500);
+}
+:root[data-theme="dark"] {
+  --sidebar-navigation-heading-text-color: var(--neutral-500);
+}
+
+.sidebar {
+  padding: var(--spacing-150) var(--spacing-200);
+}
+
+.logoContainer {
+  text-align: left;
+  padding: var(--spacing-150) 0;
+}
+
+.itemsContainer {
+  display: grid;
+  grid-column: auto;
+  gap: var(--spacing-050);
+}
+
+.content {
+  display: grid;
+  grid-column: auto;
+  gap: var(--spacing-100);
+}
+
+.heading {
+  color: var(--sidebar-navigation-heading-text-color);
+}
