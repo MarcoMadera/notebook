@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
@@ -29,6 +29,20 @@ export const metadata: Metadata = {
   title: "Notes",
   description: "Taking notes",
 };
+
+export function generateViewport(): Viewport {
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    themeColor: [
+      { media: "(prefers-color-scheme: light)", color: "cyan" },
+      { media: "(prefers-color-scheme: dark)", color: "black" },
+    ],
+    colorScheme: "dark light",
+  };
+}
 
 export default async function RootLayout({
   children,
