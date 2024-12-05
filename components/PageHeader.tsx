@@ -10,9 +10,7 @@ import TextInput from "@/app/ui/TextInput";
 
 export function PageHeader(): ReactElement {
   return (
-    <div
-      className={`col-span-11 col-start-2 tablet:col-span-8 tablet:col-start-1 mobile:col-span-8 ${styles.pageHeader}`}
-    >
+    <div className={styles.pageHeader}>
       <div className={styles.logo}>
         <Logo />
       </div>

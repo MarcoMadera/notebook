@@ -1,9 +1,9 @@
 import { type ReactElement } from "react";
 
 import styles from "./SignInAlternatives.module.css";
-import { handleSignInWithGoogle } from "../actions/auth";
+import { handleSignInWithGoogle } from "../../actions/auth";
 
-import { Google } from "../ui/icons";
+import { Google } from "../../ui/icons";
 
 import Button from "@/components/Button";
 
