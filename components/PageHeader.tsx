@@ -38,7 +38,7 @@ export function PageHeader(): ReactElement {
           }}
           placeholder="Search by title, content, or tags..."
         />
-        <ALink href="./settings" className={styles.settingsLink}>
+        <ALink href="/settings" className={styles.settingsLink}>
           <Settings />
         </ALink>
       </div>

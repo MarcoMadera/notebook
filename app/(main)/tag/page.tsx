@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 
-export default function Home(): ReactElement {
+export default function Tag(): ReactElement {
   return (
     <div>
-      <p>Home</p>
+      <p>Tag</p>
     </div>
   );
 }
