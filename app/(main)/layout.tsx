@@ -8,6 +8,7 @@ import styles from "./page.module.css";
 
 import { PageHeader } from "@/components/PageHeader";
 import { SideBarNavigation } from "@/components/SidebarNavigation";
+import { KeyboardShortcutsProvider } from "@/contexts/KeyboardShortcutsContextProvider";
 import { getUserTags } from "@/utils/supabase/notes";
 import { createClient } from "@/utils/supabase/server";
 export const metadata: Metadata = {
@@ -31,8 +32,10 @@ export default async function RootLayout({
     <div className={`${styles.page} grid-container grid-container--sidebar`}>
       <SideBarNavigation initialTags={initialTags} />
       <div className="col-span-11 col-start-2 tablet:col-span-8 tablet:col-start-1 mobile:col-span-8">
-        <PageHeader />
-        {children}
+        <KeyboardShortcutsProvider>
+          <PageHeader />
+          {children}
+        </KeyboardShortcutsProvider>
       </div>
     </div>
   );

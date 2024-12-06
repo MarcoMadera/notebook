@@ -9,9 +9,12 @@ import styles from "./PageHeader.module.css";
 
 import { Search, Settings } from "@/app/ui/icons";
 import TextInput from "@/app/ui/TextInput";
+import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut";
+import { ShortcutId } from "@/types/shortcuts";
 
 export function PageHeader(): ReactElement {
   const router = useRouter();
+  const searchShortcut = useKeyboardShortcut(ShortcutId.Search);
 
   return (
     <div className={styles.pageHeader}>
@@ -21,6 +24,8 @@ export function PageHeader(): ReactElement {
       <h1 className={`text-preset-1 ${styles.heading}`}>All Notes</h1>
       <div className={styles.controls}>
         <TextInput
+          ref={searchShortcut?.ref}
+          aria-keyshortcuts={searchShortcut?.["aria-keyshortcuts"]}
           name="search"
           id="search"
           leftIcon={<Search />}
