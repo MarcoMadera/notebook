@@ -1,8 +1,10 @@
 import {
   type InputHTMLAttributes,
   ReactElement,
+  useCallback,
   useEffect,
   useRef,
+  useState,
 } from "react";
 
 import { Info } from "./icons";
@@ -15,8 +17,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  onRightIconClick?: () => void;
-  onLeftIconClick?: () => void;
+  onRightIconClick?: (value: string) => void;
+  onLeftIconClick?: (value: string) => void;
   leftIconAriaLabel?: string;
   rightIconAriaLabel?: string;
   labelAction?: React.ReactNode;
@@ -39,6 +41,7 @@ const TextInput = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const labelActionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [value, setValue] = useState<string>("");
 
   useEffect(() => {
     if (labelActionRef.current && containerRef.current) {
@@ -50,15 +53,21 @@ const TextInput = ({
     }
   }, [labelAction]);
 
-  const handleInteraction = (handler?: () => void) => {
-    if (!handler) {
-      inputRef.current?.focus();
-    } else {
-      handler();
-    }
-  };
+  const handleInteraction = useCallback(
+    (handler?: (value: string) => void) => {
+      if (!handler) {
+        inputRef.current?.focus();
+      } else {
+        handler(value);
+      }
+    },
+    [value]
+  );
 
-  const handleKeyDown = (e: React.KeyboardEvent, handler?: () => void) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent,
+    handler?: (value: string) => void
+  ) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleInteraction(handler);
@@ -66,10 +75,7 @@ const TextInput = ({
   };
 
   return (
-    <div
-      className={`${styles.container} ${label ? styles.hasLabel : ""}`}
-      ref={containerRef}
-    >
+    <div className={styles.container} ref={containerRef}>
       <div className={styles.labelContainer}>
         {label && (
           <label className={`text-preset-4 ${styles.label}`} htmlFor={props.id}>
@@ -103,6 +109,12 @@ const TextInput = ({
           ref={inputRef}
           className={`${styles.input} ${className}`}
           {...props}
+          onChange={(e) => {
+            setValue(e.target.value);
+            if (props.onChange) {
+              props.onChange(e);
+            }
+          }}
         />
         {rightIcon && (
           <button
