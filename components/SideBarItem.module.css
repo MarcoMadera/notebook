@@ -23,6 +23,10 @@
   grid-template-columns: auto 1fr auto;
 }
 
+.listItem {
+  list-style: none;
+}
+
 .content {
   width: 100%;
   text-align: left;
