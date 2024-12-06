@@ -406,3 +406,66 @@ export async function getPaginatedNotes(
     count: count || 0,
   };
 }
+
+export interface TagWithCount {
+  name: string;
+  count: number;
+}
+
+interface NoteTagJoin {
+  tag: {
+    name: string;
+  };
+  note: {
+    user_id: string;
+  } | null;
+}
+
+export async function getUserTags(
+  supabase: SupabaseClientType
+): Promise<TagWithCount[]> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user?.id;
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  const { data, error } = await supabase
+    .from("note_tags")
+    .select(
+      `
+      tag:tags(name),
+      note:notes(user_id)
+    `
+    )
+    .eq("notes.user_id", userId)
+    .returns<NoteTagJoin[]>();
+
+  if (error) throw error;
+  if (!data) return [];
+
+  const tagCounts: Record<string, number> = {};
+  data.forEach((item) => {
+    if (item.tag && item.note) {
+      const tagName = item.tag.name;
+      tagCounts[tagName] = (tagCounts[tagName] || 0) + 1;
+    }
+  });
+
+  const tags: TagWithCount[] = Object.entries(tagCounts).map(
+    ([name, count]) => ({
+      name,
+      count,
+    })
+  );
+
+  return tags.sort((a, b) => {
+    if (b.count !== a.count) {
+      return b.count - a.count;
+    }
+    return a.name.localeCompare(b.name);
+  });
+}

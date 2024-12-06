@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 
-export default function Home(): ReactElement {
+export default function Archived(): ReactElement {
   return (
     <div>
-      <p>Home</p>
+      <p>Archived</p>
     </div>
   );
 }
