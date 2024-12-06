@@ -24,6 +24,7 @@ export function PageHeader(): ReactElement {
           name="search"
           id="search"
           leftIcon={<Search />}
+          leftIconAriaLabel="Search"
           onLeftIconClick={(value) => {
             if (value) {
               router.push(`/search?q=${value}`);
@@ -38,7 +39,11 @@ export function PageHeader(): ReactElement {
           }}
           placeholder="Search by title, content, or tags..."
         />
-        <ALink href="/settings" className={styles.settingsLink}>
+        <ALink
+          href="/settings"
+          className={styles.settingsLink}
+          aria-label="Settings"
+        >
           <Settings />
         </ALink>
       </div>

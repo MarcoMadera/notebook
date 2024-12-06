@@ -13,6 +13,9 @@
   text-align: left;
   padding: var(--spacing-150) var(--spacing-0);
 }
+.logoContainer a {
+  display: inline-block;
+}
 
 .itemsContainer {
   display: grid;

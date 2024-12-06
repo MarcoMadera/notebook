@@ -754,8 +754,8 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 /* For Firefox */
 input[type="password"] {
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
   -webkit-text-security: disc !important;
 }
 
