@@ -1,0 +1,4 @@
+.container {
+  padding: var(--spacing-250) var(--spacing-200) var(--spacing-250)
+    var(--spacing-0);
+}

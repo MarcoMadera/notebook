@@ -8,13 +8,24 @@
 }
 
 .pageHeader {
-  padding: 1.1563rem var(--spacing-400);
+  padding: 1.1563rem var(--spacing-0);
   display: grid;
   justify-content: space-between;
   width: 100%;
   grid-auto-flow: column;
   align-items: center;
   height: 5.0625rem;
+  position: relative;
+}
+
+.pageHeader::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--desktop-margin) * -1);
+  bottom: 0;
+  width: 100vw;
+  height: 1px;
+  background-color: var(--hr-border-color);
 }
 
 .heading {
@@ -45,6 +56,9 @@
   .pageHeader {
     background-color: var(--pageHeader-background-color);
     padding: 1.4375rem var(--spacing-400);
+  }
+  .pageHeader::after {
+    content: none;
   }
   .logo {
     display: flex;

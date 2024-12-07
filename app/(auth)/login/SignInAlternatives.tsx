@@ -15,7 +15,11 @@ export function SignInAlternatives(): ReactElement {
       >
         Or log in with:
       </p>
-      <Button formAction={handleSignInWithGoogle} variant="border">
+      <Button
+        type="submit"
+        formAction={handleSignInWithGoogle}
+        variant="border"
+      >
         <Google /> Google
       </Button>
     </form>
