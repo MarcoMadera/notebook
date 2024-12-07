@@ -1,0 +1,20 @@
+.container {
+  display: grid;
+  padding: var(--spacing-250) var(--spacing-300);
+  gap: var(--spacing-200);
+}
+
+.header {
+  display: grid;
+  gap: var(--spacing-200);
+}
+
+.subheader {
+  display: grid;
+  gap: var(--spacing-100);
+  grid-template-columns: 7.1875rem 1fr;
+}
+
+.subheaderContent {
+  display: flex;
+}

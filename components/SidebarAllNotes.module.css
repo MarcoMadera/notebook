@@ -1,4 +1,17 @@
 .container {
   padding: var(--spacing-250) var(--spacing-200) var(--spacing-250)
     var(--spacing-0);
+  display: grid;
+  gap: var(--spacing-200);
+}
+
+.menuCards {
+  display: grid;
+  gap: var(--spacing-050);
+  overflow-y: auto;
+  max-height: calc(100vh - 11.4375rem);
+}
+
+.hidden {
+  visibility: hidden;
 }

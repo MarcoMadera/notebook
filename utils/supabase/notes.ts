@@ -403,7 +403,7 @@ export async function getPaginatedNotes(
 
   return {
     data: data || [],
-    count: count || 0,
+    count: count ?? 0,
   };
 }
 
@@ -468,4 +468,37 @@ export async function getUserTags(
     }
     return a.name.localeCompare(b.name);
   });
+}
+
+export async function getNoteById(
+  supabase: SupabaseClientType,
+  noteId: string
+): Promise<NoteWithTags> {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user?.id;
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  const { data, error } = await supabase
+    .from("notes")
+    .select(
+      `
+      *,
+      tags:note_tags(
+        tag:tags(name)
+      )
+    `
+    )
+    .eq("id", noteId)
+    .eq("user_id", userId)
+    .single<NoteWithTags>();
+
+  if (error) throw error;
+  if (!data) throw new Error("Note not found");
+
+  return data;
 }

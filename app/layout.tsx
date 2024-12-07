@@ -50,8 +50,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>): Promise<ReactElement> {
   const cookieStore = await cookies();
-  const theme = validateTheme(cookieStore.get("theme")?.value);
-
+  const theme = validateTheme(cookieStore.get("notes-theme")?.value);
+  console.log("theme", cookieStore.get("notes-theme")?.value);
   return (
     <html lang="en" data-theme={theme}>
       <body

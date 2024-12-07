@@ -40,7 +40,7 @@ export function ThemeProvider({
     const newTheme = theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT;
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
-    document.cookie = `theme=${newTheme};path=/`;
+    document.cookie = `notes-theme=${newTheme};path=/`;
   }, [theme]);
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
