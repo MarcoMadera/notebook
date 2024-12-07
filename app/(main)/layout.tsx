@@ -22,12 +22,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>): Promise<ReactElement> {
   const supabase = await createClient();
-
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
     redirect("/login");
   }
   const initialTags = await getUserTags(supabase);
+
   return (
     <div className={`${styles.page} grid-container grid-container--sidebar`}>
       <SideBarNavigation initialTags={initialTags} />

@@ -1,18 +1,30 @@
 "use client";
 
-import { ReactElement } from "react";
+import { Fragment, ReactElement } from "react";
 
+import { usePathname } from "next/navigation";
+
+import { AllNotesMenuCard } from "./AllNotesMenuCard";
 import Button from "./Button";
 
+import { Divider } from "./Divider";
 import styles from "./SidebarAllNotes.module.css";
 
 import { Plus } from "@/app/ui/icons";
 import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut";
 import { ShortcutId } from "@/types/shortcuts";
-import { TagWithCount } from "@/utils/supabase/notes";
+import { NoteWithTags } from "@/utils/supabase/notes";
 
-export function SidebarAllNotes(): ReactElement {
+export function SidebarAllNotes({
+  initialNotes,
+}: Readonly<{
+  initialNotes: {
+    data: NoteWithTags[];
+    count: number;
+  };
+}>): ReactElement {
   const shortcut = useKeyboardShortcut(ShortcutId.NewNote);
+  const pathname = usePathname();
 
   return (
     <aside
@@ -27,36 +39,31 @@ export function SidebarAllNotes(): ReactElement {
       >
         <Plus /> Create New Note
       </Button>
-      <AllNotesMenuCard
-        title="React Performance Optimization"
-        date="2023-03-11T00:00:00.000Z"
-        tags={[
-          { name: "Dev", count: 5 },
-          { name: "React", count: 2 },
-        ]}
-      />
-    </aside>
-  );
-}
+      <div className={styles.menuCards}>
+        {initialNotes.data.map((note, index) => {
+          const isSelected = pathname === `/${note.id}`;
+          const nextNoteIsSelected =
+            initialNotes.data[index + 1] &&
+            pathname === `/${initialNotes.data[index + 1].id}`;
 
-function AllNotesMenuCard({
-  title,
-  tags,
-  date,
-}: Readonly<{
-  title: string;
-  tags: TagWithCount[];
-  date: string;
-}>): ReactElement {
-  return (
-    <article>
-      <h2>{title}</h2>
-      <div>
-        {tags.map((tag) => {
-          return <div key={tag.name}>{tag.name}</div>;
+          const hideDivider = isSelected || nextNoteIsSelected;
+
+          return (
+            <Fragment key={note.id}>
+              <AllNotesMenuCard
+                id={note.id}
+                title={note.title}
+                date={note.updated_at}
+                tags={note.tags}
+                selected={isSelected}
+              />
+              {index < initialNotes.data.length - 1 && (
+                <Divider className={`${hideDivider ? styles.hidden : ""}`} />
+              )}
+            </Fragment>
+          );
         })}
       </div>
-      <time dateTime={date}>{date}</time>
-    </article>
+    </aside>
   );
 }

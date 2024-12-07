@@ -1,0 +1,41 @@
+:root[data-theme="light"] {
+  --all-note-menu-card-selected-background-color: var(--neutral-100);
+  --all-note-menu-card-tag-background-color: var(--neutral-200);
+  --all-note-menu-card-date-color: var(--neutral-700);
+}
+:root[data-theme="dark"] {
+  --all-note-menu-card-selected-background-color: var(--neutral-800);
+  --all-note-menu-card-tag-background-color: var(--neutral-700);
+  --all-note-menu-card-date-color: var(--neutral-200);
+}
+
+.container {
+  display: grid;
+  grid-auto-columns: auto;
+  gap: var(--spacing-150);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-050);
+}
+
+.tag {
+  background-color: var(--all-note-menu-card-tag-background-color);
+  padding: var(--spacing-025) var(--spacing-075);
+  border-radius: var(--spacing-050);
+}
+
+.date {
+  color: var(--all-note-menu-card-date-color);
+}
+
+.linkContainer {
+  display: flex;
+  padding: var(--spacing-100);
+  border-radius: var(--spacing-075);
+}
+.linkContainer.selected {
+  background-color: var(--all-note-menu-card-selected-background-color);
+}
