@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 
 import { ShortcutsModal } from "@/components/ShortcutsModal";
 import { ShortcutConfig, ShortcutId } from "@/types/shortcuts";
+import { hasVimium } from "@/utils/hasVimium";
 
 export type KeyboardShortcutContextType = {
   searchRef: Ref<HTMLInputElement> | null;
@@ -97,6 +98,10 @@ export function KeyboardShortcutsProvider({
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
+
+  useEffect(() => {
+    console.log("hasVimium", hasVimium());
+  }, [shortcuts]);
 
   const value = useMemo(
     () => ({ searchRef, showHelp, setShowHelp, shortcuts }),

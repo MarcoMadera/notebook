@@ -1,9 +1,11 @@
 import { ReactElement } from "react";
 
+import { SidebarAllNotes } from "@/components/SidebarAllNotes";
+
 export default function Home(): ReactElement {
   return (
-    <div>
-      <p>Home</p>
+    <div className="grid-container grid-container--no-sidebar">
+      <SidebarAllNotes />
     </div>
   );
 }

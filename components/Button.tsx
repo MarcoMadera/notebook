@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 
-import style from "./Button.module.css";
+import styles from "./Button.module.css";
 type ButtonVariant = "primary" | "secondary" | "border" | "danger";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,11 +13,17 @@ const Button = ({
   variant = "primary",
   ...props
 }: ButtonProps): ReactElement => {
+  const classNames = [
+    styles.button,
+    styles[variant],
+    variant === "primary" ? "text-preset-3" : "text-preset-4",
+    props.className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <button
-      {...props}
-      className={`${style.button} ${style[variant]} ${variant === "primary" ? "text-preset-3" : "text-preset-4"}`}
-    >
+    <button {...props} className={classNames}>
       {children}
     </button>
   );
