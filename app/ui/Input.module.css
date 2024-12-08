@@ -36,6 +36,7 @@
 
 .label {
   color: inherit;
+  margin-bottom: var(--spacing-075);
 }
 
 .labelContainer {
@@ -57,9 +58,6 @@
   display: flex;
   align-items: center;
   cursor: text;
-}
-.hasLabel .inputWrapper {
-  margin-top: var(--spacing-075);
 }
 
 .input {

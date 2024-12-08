@@ -1,6 +1,8 @@
 import {
+  createElement,
   DetailedHTMLProps,
   HTMLAttributes,
+  HTMLElementType,
   PropsWithChildren,
   ReactElement,
 } from "react";
@@ -9,26 +11,27 @@ import styles from "./ScrollableContainer.module.css";
 
 type Props = {
   height: string;
+  as?: HTMLElementType;
 };
 
-export function ScrollableContainer(
+export function ScrollableContainer<T = HTMLDivElement>(
   props: Readonly<
-    PropsWithChildren<
-      DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & Props
-    >
+    PropsWithChildren<DetailedHTMLProps<HTMLAttributes<T>, T> & Props>
   >
 ): ReactElement {
-  const classNames = [styles.scrollContent, props.className]
+  const className = [styles.scrollContent, props.className]
     .filter(Boolean)
     .join(" ");
 
+  const element = createElement(
+    props.as ?? "div",
+    { className },
+    props.children
+  );
+
   return (
-    <div className={styles.scrollContainer}>
-      <div className={styles.scrollViewport}>
-        <div className={styles.scrollArea} style={{ height: props.height }}>
-          <div className={classNames}>{props.children}</div>
-        </div>
-      </div>
+    <div className={styles.scrollArea} style={{ height: props.height }}>
+      {element}
     </div>
   );
 }
