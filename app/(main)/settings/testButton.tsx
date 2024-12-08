@@ -32,9 +32,44 @@ export function TestButton(): ReactElement {
   };
   const handleCreateNote = async () => {
     const response = await createNote(supabase, {
-      content: "my new note",
-      title: "my title",
-      tags: ["new tag 2"],
+      content:
+        "Key performance optimization techniques:\n\n1. Code Splitting\n- Use React.lazy() for route-based splitting\n- Implement dynamic imports for heavy components\n\n2. Memoization\n- useMemo for expensive calculations\n- useCallback for function props\n- React.memo for component optimization\n\n3. Virtual List Implementation\n- Use react-window for long lists\n- Implement infinite scrolling\n\nTODO: Benchmark current application and identify bottlenecks",
+      title: "React Performance Optimization",
+      tags: [
+        "Dev",
+        "React",
+        "new tag 2",
+        "test1",
+        "test2",
+        "test3",
+        "test4",
+        "test5",
+        "test11",
+        "test12",
+        "test13",
+        "test14",
+        "test15",
+        "test21",
+        "test22",
+        "test23",
+        "test24",
+        "test25",
+        "test31",
+        "test32",
+        "test33",
+        "test34",
+        "test35",
+        "test41",
+        "test42",
+        "test43",
+        "test44",
+        "test45",
+        "test51",
+        "test52",
+        "test53",
+        "test54",
+        "test55",
+      ],
     });
     setNotes([response]);
   };
@@ -81,7 +116,7 @@ export function TestButton(): ReactElement {
     }
   };
 
-  const observer = useRef<IntersectionObserver>();
+  const observer = useRef<IntersectionObserver>(null);
   const lastNoteRef = useCallback(
     (node: HTMLElement | null) => {
       if (loading) return;

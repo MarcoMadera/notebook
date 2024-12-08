@@ -4,6 +4,17 @@
   display: grid;
   gap: var(--spacing-200);
   height: fit-content;
+  position: relative;
+}
+
+.container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--hr-border-color);
 }
 
 .menuCards {

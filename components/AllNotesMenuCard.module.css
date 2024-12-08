@@ -2,11 +2,13 @@
   --all-note-menu-card-selected-background-color: var(--neutral-100);
   --all-note-menu-card-tag-background-color: var(--neutral-200);
   --all-note-menu-card-date-color: var(--neutral-700);
+  --all-note-menu-card-tag-color: var(--neutral-950);
 }
 :root[data-theme="dark"] {
   --all-note-menu-card-selected-background-color: var(--neutral-800);
   --all-note-menu-card-tag-background-color: var(--neutral-700);
   --all-note-menu-card-date-color: var(--neutral-200);
+  --all-note-menu-card-tag-color: var(--neutral-0);
 }
 
 .container {
@@ -25,6 +27,7 @@
   background-color: var(--all-note-menu-card-tag-background-color);
   padding: var(--spacing-025) var(--spacing-075);
   border-radius: var(--spacing-050);
+  color: var(--all-note-menu-card-tag-color);
 }
 
 .date {
