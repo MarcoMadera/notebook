@@ -11,6 +11,7 @@ export function AllNotesMenuCard({
   date,
   selected,
   id,
+  baseUrl = "",
 }: Readonly<{
   title: string;
   id: string;
@@ -20,11 +21,12 @@ export function AllNotesMenuCard({
     };
   }[];
   date: string;
+  baseUrl?: string;
   selected?: boolean;
 }>): ReactElement {
   return (
     <ALink
-      href={`/${id}`}
+      href={`${baseUrl}/${id}`}
       className={`${styles.linkContainer}  ${selected ? styles.selected : ""}`}
     >
       <article className={styles.container}>
