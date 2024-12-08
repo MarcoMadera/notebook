@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, ReactElement } from "react";
+import { Fragment, PropsWithChildren, ReactElement } from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -18,12 +18,19 @@ import { NoteWithTags } from "@/utils/supabase/notes";
 
 export function SidebarAllNotes({
   initialNotes,
-}: Readonly<{
-  initialNotes: {
-    data: NoteWithTags[];
-    count: number;
-  };
-}>): ReactElement {
+  baseUrl = "",
+  children,
+  height = "calc(100vh - 10rem)",
+}: Readonly<
+  PropsWithChildren<{
+    initialNotes: {
+      data: NoteWithTags[];
+      count: number;
+    };
+    baseUrl?: string;
+    height?: string;
+  }>
+>): ReactElement {
   const shortcut = useKeyboardShortcut(ShortcutId.NewNote);
   const pathname = usePathname();
 
@@ -40,15 +47,13 @@ export function SidebarAllNotes({
       >
         <Plus /> Create New Note
       </Button>
-      <ScrollableContainer
-        className={styles.menuCards}
-        height="calc(100vh - 10rem)"
-      >
+      {children}
+      <ScrollableContainer className={styles.menuCards} height={height}>
         {initialNotes.data.slice(0, 10).map((note, index) => {
-          const isSelected = pathname === `/${note.id}`;
+          const isSelected = pathname === `${baseUrl}/${note.id}`;
           const nextNoteIsSelected =
             initialNotes.data[index + 1] &&
-            pathname === `/${initialNotes.data[index + 1].id}`;
+            pathname === `${baseUrl}/${initialNotes.data[index + 1].id}`;
 
           const hideDivider = isSelected || nextNoteIsSelected;
 
@@ -60,6 +65,7 @@ export function SidebarAllNotes({
                 date={note.updated_at}
                 tags={note.tags}
                 selected={isSelected}
+                baseUrl={baseUrl}
               />
               {index < initialNotes.data.length - 1 && (
                 <Divider className={`${hideDivider ? styles.hidden : ""}`} />

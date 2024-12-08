@@ -119,6 +119,7 @@
 
   /* Line Heights */
   --line-height-tight: 120%;
+  --line-height-normal: 130%;
 }
 
 /* Typography Preset Classes */
@@ -153,7 +154,7 @@
 .text-preset-5 {
   font-size: var(--font-size-sm);
   font-weight: var(--font-regular);
-  line-height: var(--line-height-tight);
+  line-height: var(--line-height-normal);
   letter-spacing: var(--letter-spacing-normal);
 }
 

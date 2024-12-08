@@ -74,6 +74,7 @@ export function PageHeader(): ReactElement {
             }
           }}
           placeholder="Search by title, content, or tags..."
+          className="text-preset-5"
         />
         <ALink
           href="/settings"

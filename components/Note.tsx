@@ -6,16 +6,18 @@ import styles from "./Note.module.css";
 
 import { ScrollableContainer } from "./ScrollableContainer";
 
-import { Clock, Tag } from "@/app/ui/icons";
+import { Clock, Status, Tag } from "@/app/ui/icons";
 import { formatDate } from "@/utils/formatDate";
 import { NoteWithTags } from "@/utils/supabase/notes";
 
 export function Note({
   note,
   ref,
+  showStatus,
 }: Readonly<{
   note: NoteWithTags;
   ref?: Ref<HTMLDivElement>;
+  showStatus?: boolean;
 }>): ReactElement {
   return (
     <main
@@ -39,6 +41,14 @@ export function Note({
                 </span>
               ))}
             </ScrollableContainer>
+            {showStatus ? (
+              <>
+                <div className={styles.subheaderContent}>
+                  <Status /> Status
+                </div>
+                <span className={styles.subheaderContent}>{note.status}</span>
+              </>
+            ) : null}
             <div className={styles.subheaderContent}>
               <Clock /> Last Edited
             </div>
@@ -52,7 +62,7 @@ export function Note({
         </header>
         <Divider />
         <ScrollableContainer
-          height="calc(100vh - 20.11rem)"
+          height="calc(100vh - 21.25rem)"
           className={`text-preset-5 ${styles.noteContent}`}
         >
           {note.content}

@@ -1,9 +1,4 @@
-import { ReactElement } from "react";
-
-export default function Archived(): ReactElement {
-  return (
-    <div>
-      <p>Archived</p>
-    </div>
-  );
+import type { ReactElement } from "react";
+export default function Page(): ReactElement {
+  return <div>Please select a note</div>;
 }
