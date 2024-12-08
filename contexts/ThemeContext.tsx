@@ -29,8 +29,9 @@ export function ThemeProvider({
       const newTheme = e.matches ? Theme.DARK : Theme.LIGHT;
       setTheme(newTheme);
       document.documentElement.setAttribute("data-theme", newTheme);
-      document.cookie = `theme=${newTheme};path=/`;
+      document.cookie = `notes-theme=${newTheme};path=/`;
     };
+    document.cookie = `notes-theme=${mediaQuery.matches ? Theme.DARK : Theme.LIGHT};path=/`;
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
