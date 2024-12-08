@@ -427,6 +427,7 @@
 }
 
 :root {
+  --scrollbar-width: var(--spacing-050);
   /* Desktop with Sidebar (1440px) */
   --desktop-width: 1440px;
   --sidebar-width: 272px;
@@ -740,12 +741,9 @@
   -webkit-border-bottom-left-radius: 30px;
   -moz-border-radius-bottomleft: 30px;
   border-bottom-left-radius: 30px;
-  padding-right: 200px;
-  margin-right: 200px;
-  right: 200px;
 }
 ::-webkit-scrollbar {
-  width: 4px;
+  width: var(--scrollbar-width);
 }
 ::-webkit-scrollbar-track {
   background: transparent;

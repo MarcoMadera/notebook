@@ -42,9 +42,9 @@ export function SidebarAllNotes({
       </Button>
       <ScrollableContainer
         className={styles.menuCards}
-        height="calc(100vh - 12rem)"
+        height="calc(100vh - 10rem)"
       >
-        {initialNotes.data.map((note, index) => {
+        {initialNotes.data.slice(0, 10).map((note, index) => {
           const isSelected = pathname === `/${note.id}`;
           const nextNoteIsSelected =
             initialNotes.data[index + 1] &&

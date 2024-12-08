@@ -8,6 +8,7 @@ import { ALink } from "./ALink";
 import { Divider } from "./Divider";
 import { Logo } from "./Logo";
 
+import { ScrollableContainer } from "./ScrollableContainer";
 import { SideBarItem } from "./SideBarItem";
 
 import styles from "./SideBarNavigation.module.css";
@@ -87,7 +88,11 @@ export function SideBarNavigation({
           Tags
         </h2>
         <nav role="navigation" aria-labelledby="sidebar-tags-heading">
-          <ul className={styles.itemsContainer}>
+          <ScrollableContainer
+            as="ul"
+            height="calc(100vh - 11.90rem)"
+            className={styles.itemsContainer}
+          >
             {initialTags.map((tagWithCount) => {
               const path = `/tag/${encodeURIComponent(tagWithCount.name)}`;
               return (
@@ -102,7 +107,7 @@ export function SideBarNavigation({
                 </SideBarItem>
               );
             })}
-          </ul>
+          </ScrollableContainer>
         </nav>
       </div>
     </aside>

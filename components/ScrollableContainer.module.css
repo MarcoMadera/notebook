@@ -1,38 +1,28 @@
-.scrollContainer {
-  position: relative;
-}
-
-.scrollViewport {
-  position: relative;
-  padding: var(--scrollbar-width, 4px);
-  margin: calc(var(--scrollbar-width, 4px) * -1);
-}
-
-.scrollArea {
-  overflow-y: auto;
-  position: relative;
-  scrollbar-gutter: stable;
-  margin: calc(var(--scrollbar-width, 4px) * -1);
-  padding: var(--scrollbar-width, 4px);
-  padding-right: 8px;
-  margin-right: calc(calc(var(--scrollbar-width, 4px) * -1) - 8px);
-}
-
 /* Firefox specific */
 @-moz-document url-prefix() {
-  .scrollContainer {
-    margin-right: 4px;
+  :root {
+    --scrollbar-width: var(--spacing-100);
+  }
+  .scrollContent {
+    margin-right: var(--scrollbar-width);
   }
 }
 
-.scrollContent {
+.scrollArea {
+  --focus-shadow-overflow: var(--spacing-050);
+  --scrollbar-separation: var(--spacing-050);
+  --scrollbar-total-separation: calc(
+    var(--focus-shadow-overflow) + var(--scrollbar-separation)
+  );
+  --scrollbar-space: calc(var(--scrollbar-width) + var(--scrollbar-separation));
+  --total-extra-space: calc(
+    var(--scrollbar-space) + var(--focus-shadow-overflow)
+  );
+  overflow-y: auto;
   position: relative;
-  padding-top: 4px;
-}
-
-.scrollContent::after {
-  content: "";
-  display: block;
-  height: 8px;
-  margin-bottom: -8px;
+  scrollbar-gutter: stable;
+  margin: calc(var(--focus-shadow-overflow) * -1);
+  padding: var(--focus-shadow-overflow) var(--scrollbar-total-separation)
+    var(--focus-shadow-overflow) var(--focus-shadow-overflow);
+  margin-right: calc(var(--total-extra-space) * -1);
 }

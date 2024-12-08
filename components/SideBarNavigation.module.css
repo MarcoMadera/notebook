@@ -6,7 +6,7 @@
 }
 
 .sidebar {
-  padding: var(--spacing-150) var(--spacing-200);
+  padding: var(--spacing-150) var(--spacing-200) var(--spacing-0);
   border-right: 1px solid var(--hr-border-color);
 }
 

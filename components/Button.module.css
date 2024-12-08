@@ -41,6 +41,7 @@
   cursor: pointer;
   width: 100%;
   transition: all 0.2s;
+  height: fit-content;
 }
 
 .button.primary {
