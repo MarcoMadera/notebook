@@ -8,8 +8,6 @@
 .menuCards {
   display: grid;
   gap: var(--spacing-050);
-  overflow-y: auto;
-  max-height: calc(100vh - 11.4375rem);
 }
 
 .hidden {
