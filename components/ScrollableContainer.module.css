@@ -1,0 +1,38 @@
+.scrollContainer {
+  position: relative;
+}
+
+.scrollViewport {
+  position: relative;
+  padding: var(--scrollbar-width, 4px);
+  margin: calc(var(--scrollbar-width, 4px) * -1);
+}
+
+.scrollArea {
+  overflow-y: auto;
+  position: relative;
+  scrollbar-gutter: stable;
+  margin: calc(var(--scrollbar-width, 4px) * -1);
+  padding: var(--scrollbar-width, 4px);
+  padding-right: 8px;
+  margin-right: calc(calc(var(--scrollbar-width, 4px) * -1) - 8px);
+}
+
+/* Firefox specific */
+@-moz-document url-prefix() {
+  .scrollContainer {
+    margin-right: 4px;
+  }
+}
+
+.scrollContent {
+  position: relative;
+  padding-top: 4px;
+}
+
+.scrollContent::after {
+  content: "";
+  display: block;
+  height: 8px;
+  margin-bottom: -8px;
+}

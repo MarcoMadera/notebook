@@ -8,6 +8,7 @@ import { AllNotesMenuCard } from "./AllNotesMenuCard";
 import Button from "./Button";
 
 import { Divider } from "./Divider";
+import { ScrollableContainer } from "./ScrollableContainer";
 import styles from "./SidebarAllNotes.module.css";
 
 import { Plus } from "@/app/ui/icons";
@@ -39,7 +40,10 @@ export function SidebarAllNotes({
       >
         <Plus /> Create New Note
       </Button>
-      <div className={styles.menuCards}>
+      <ScrollableContainer
+        className={styles.menuCards}
+        height="calc(100vh - 12rem)"
+      >
         {initialNotes.data.map((note, index) => {
           const isSelected = pathname === `/${note.id}`;
           const nextNoteIsSelected =
@@ -63,7 +67,7 @@ export function SidebarAllNotes({
             </Fragment>
           );
         })}
-      </div>
+      </ScrollableContainer>
     </aside>
   );
 }
