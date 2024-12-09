@@ -22,6 +22,7 @@
   position: relative;
   scrollbar-gutter: stable;
   margin: calc(var(--focus-shadow-overflow) * -1);
+  margin-bottom: var(--spacing-0);
   padding: var(--focus-shadow-overflow) var(--scrollbar-total-separation)
     var(--focus-shadow-overflow) var(--focus-shadow-overflow);
   margin-right: calc(var(--total-extra-space) * -1);

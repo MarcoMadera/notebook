@@ -506,6 +506,7 @@
         var(--desktop-gutter) var(--desktop-column)
       );
     justify-content: center;
+    min-height: 100%;
   }
 }
 
@@ -762,6 +763,7 @@ body {
   font-family: sans-serif, var(--inter), Arial, Helvetica;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100svh;
 }
 
 * {

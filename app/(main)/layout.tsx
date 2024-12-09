@@ -31,7 +31,9 @@ export default async function RootLayout({
   return (
     <div className={`${styles.page} grid-container grid-container--sidebar`}>
       <SideBarNavigation initialTags={initialTags} />
-      <div className="col-span-12 col-start-2 tablet:col-span-8 tablet:col-start-1 mobile:col-span-8">
+      <div
+        className={`${styles.container} col-span-12 col-start-2 tablet:col-span-8 tablet:col-start-1 mobile:col-span-8`}
+      >
         <KeyboardShortcutsProvider>
           <PageHeader />
           {children}

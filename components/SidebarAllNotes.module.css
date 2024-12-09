@@ -3,8 +3,9 @@
     var(--spacing-0);
   display: grid;
   gap: var(--spacing-200);
-  height: fit-content;
+  min-height: 100%;
   position: relative;
+  grid-template-rows: auto auto 1fr;
 }
 
 .container::after {

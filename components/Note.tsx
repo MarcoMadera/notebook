@@ -61,10 +61,7 @@ export function Note({
           </div>
         </header>
         <Divider />
-        <ScrollableContainer
-          height="calc(100vh - 21.25rem)"
-          className={`text-preset-5 ${styles.noteContent}`}
-        >
+        <ScrollableContainer className={`text-preset-5 ${styles.noteContent}`}>
           {note.content}
         </ScrollableContainer>
       </article>

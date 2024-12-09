@@ -10,7 +10,6 @@ import {
 import styles from "./ScrollableContainer.module.css";
 
 type Props = {
-  height: string;
   as?: HTMLElementType;
 };
 
@@ -29,9 +28,5 @@ export function ScrollableContainer<T = HTMLDivElement>(
     props.children
   );
 
-  return (
-    <div className={styles.scrollArea} style={{ height: props.height }}>
-      {element}
-    </div>
-  );
+  return <div className={styles.scrollArea}>{element}</div>;
 }

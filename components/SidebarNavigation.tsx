@@ -87,12 +87,12 @@ export function SideBarNavigation({
         >
           Tags
         </h2>
-        <nav role="navigation" aria-labelledby="sidebar-tags-heading">
-          <ScrollableContainer
-            as="ul"
-            height="calc(100vh - 11.90rem)"
-            className={styles.itemsContainer}
-          >
+        <nav
+          role="navigation"
+          aria-labelledby="sidebar-tags-heading"
+          className={styles.navItems}
+        >
+          <ScrollableContainer as="ul" className={styles.itemsContainer}>
             {initialTags.map((tagWithCount) => {
               const path = `/tag/${encodeURIComponent(tagWithCount.name)}`;
               return (
