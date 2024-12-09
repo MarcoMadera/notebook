@@ -20,7 +20,6 @@ export function SidebarAllNotes({
   initialNotes,
   baseUrl = "",
   children,
-  height = "calc(100vh - 10rem)",
 }: Readonly<
   PropsWithChildren<{
     initialNotes: {
@@ -28,7 +27,6 @@ export function SidebarAllNotes({
       count: number;
     };
     baseUrl?: string;
-    height?: string;
   }>
 >): ReactElement {
   const shortcut = useKeyboardShortcut(ShortcutId.NewNote);
@@ -47,8 +45,8 @@ export function SidebarAllNotes({
       >
         <Plus /> Create New Note
       </Button>
-      {children}
-      <ScrollableContainer className={styles.menuCards} height={height}>
+      <div>{children}</div>
+      <ScrollableContainer className={styles.menuCards}>
         {initialNotes.data.slice(0, 10).map((note, index) => {
           const isSelected = pathname === `${baseUrl}/${note.id}`;
           const nextNoteIsSelected =

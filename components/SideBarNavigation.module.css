@@ -8,6 +8,9 @@
 .sidebar {
   padding: var(--spacing-150) var(--spacing-200) var(--spacing-0);
   position: relative;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 .sidebar::after {
@@ -38,9 +41,16 @@
   display: grid;
   grid-column: auto;
   gap: var(--spacing-100);
+  grid-template-rows: auto 1fr;
+  min-height: 100%;
 }
 
 .heading {
   color: var(--sidebar-navigation-heading-text-color);
   padding: var(--spacing-0) var(--spacing-050);
+}
+
+.navItems {
+  display: grid;
+  min-height: 100%;
 }

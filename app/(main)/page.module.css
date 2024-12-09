@@ -7,4 +7,12 @@
 
 .page {
   min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.container {
+  display: grid;
+  min-height: 100%;
+  grid-template-rows: auto 1fr;
 }
