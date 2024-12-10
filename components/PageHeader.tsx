@@ -1,5 +1,5 @@
 "use client";
-import { ReactElement } from "react";
+import { ReactElement, useTransition } from "react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -7,9 +7,11 @@ import { ALink } from "./ALink";
 import { Logo } from "./Logo";
 import styles from "./PageHeader.module.css";
 
+import { searchNotes } from "@/app/(main)/search/actions";
 import { Search, Settings } from "@/app/ui/icons";
 import TextInput from "@/app/ui/TextInput";
 import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut";
+import { useNotes } from "@/hooks/useNotes";
 import { ShortcutId } from "@/types/shortcuts";
 
 export function PageHeader(): ReactElement {
@@ -17,6 +19,8 @@ export function PageHeader(): ReactElement {
   const searchShortcut = useKeyboardShortcut(ShortcutId.Search);
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { setNotes } = useNotes();
+  const [isPending, startTransition] = useTransition();
 
   const getHeading = () => {
     const searchQuery = searchParams.get("q");
@@ -47,6 +51,15 @@ export function PageHeader(): ReactElement {
     return "Notes";
   };
 
+  const handleSearch = (value: string) => {
+    router.push(`/search?q=${value}`, { scroll: false });
+
+    startTransition(async () => {
+      const newNotes = await searchNotes(value);
+      setNotes(newNotes);
+    });
+  };
+
   return (
     <header className={styles.pageHeader}>
       <div className={styles.logo}>
@@ -63,18 +76,19 @@ export function PageHeader(): ReactElement {
           leftIconAriaLabel="Search"
           onLeftIconClick={(value) => {
             if (value) {
-              router.push(`/search?q=${value}`);
+              handleSearch(value);
             }
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
               const value = e.currentTarget.value;
-              router.push(`/search?q=${value}`);
+              handleSearch(value);
             }
           }}
           placeholder="Search by title, content, or tags..."
           className="text-preset-5"
+          disabled={isPending}
         />
         <ALink
           href="/settings"

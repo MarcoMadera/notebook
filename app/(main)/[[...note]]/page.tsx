@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import { Archive, Delete } from "@/app/ui/icons";
+import { Archive, Delete, Restore } from "@/app/ui/icons";
 import Button from "@/components/Button";
 import { Note } from "@/components/Note";
 import { SidebarRight } from "@/components/SidebarRight";
@@ -25,7 +25,12 @@ export default async function Page({
       <Note note={data} />
       <SidebarRight>
         <Button type="button" variant="border" className="text-preset-4">
-          <Archive width={"18.8px"} height={"18.8px"} /> Archive Note
+          {data.status === "archived" ? (
+            <Restore width={"18.8px"} height={"18.8px"} />
+          ) : (
+            <Archive width={"18.8px"} height={"18.8px"} />
+          )}
+          {data.status === "archived" ? "Restore" : "Archive"} Note
         </Button>
         <Button type="button" variant="border" className="text-preset-4">
           <Delete width={"18.8px"} height={"18.8px"} /> Delete Note

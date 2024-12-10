@@ -1,3 +1,7 @@
-export default function Template({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>;
+import { PropsWithChildren, ReactElement } from "react";
+
+export default function Template({
+  children,
+}: Readonly<PropsWithChildren>): ReactElement {
+  return <>{children}</>;
 }
