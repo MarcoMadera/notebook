@@ -1,6 +1,12 @@
 "use client";
 
-import { Fragment, PropsWithChildren, ReactElement } from "react";
+import {
+  Fragment,
+  PropsWithChildren,
+  ReactElement,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -13,6 +19,7 @@ import styles from "./SidebarAllNotes.module.css";
 
 import { Plus } from "@/app/ui/icons";
 import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut";
+import { useNotes } from "@/hooks/useNotes";
 import { ShortcutId } from "@/types/shortcuts";
 import { NoteWithTags } from "@/utils/supabase/notes";
 
@@ -31,6 +38,15 @@ export function SidebarAllNotes({
 >): ReactElement {
   const shortcut = useKeyboardShortcut(ShortcutId.NewNote);
   const pathname = usePathname();
+  const { notes: globalNotes, setNotes } = useNotes();
+  const [mount, setMount] = useState(false);
+  const notes = mount ? globalNotes : initialNotes.data;
+
+  useLayoutEffect(() => {
+    setNotes(initialNotes.data);
+    setMount(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <aside
@@ -47,11 +63,11 @@ export function SidebarAllNotes({
       </Button>
       <div>{children}</div>
       <ScrollableContainer className={styles.menuCards}>
-        {initialNotes.data.slice(0, 10).map((note, index) => {
+        {notes.slice(0, 10).map((note, index) => {
           const isSelected = pathname === `${baseUrl}/${note.id}`;
           const nextNoteIsSelected =
-            initialNotes.data[index + 1] &&
-            pathname === `${baseUrl}/${initialNotes.data[index + 1].id}`;
+            notes[index + 1] &&
+            pathname === `${baseUrl}/${notes[index + 1].id}`;
 
           const hideDivider = isSelected || nextNoteIsSelected;
 
@@ -65,7 +81,7 @@ export function SidebarAllNotes({
                 selected={isSelected}
                 baseUrl={baseUrl}
               />
-              {index < initialNotes.data.length - 1 && (
+              {index < notes.length - 1 && (
                 <Divider className={`${hideDivider ? styles.hidden : ""}`} />
               )}
             </Fragment>
