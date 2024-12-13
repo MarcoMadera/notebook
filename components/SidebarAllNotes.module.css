@@ -18,6 +18,12 @@
   background-color: var(--hr-border-color);
 }
 
+.group {
+  grid-template-rows: none;
+  align-content: start;
+  gap: var(--spacing-100);
+}
+
 .menuCards {
   display: grid;
   gap: var(--spacing-050);
