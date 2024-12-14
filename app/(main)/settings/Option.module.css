@@ -1,5 +1,4 @@
 :root[data-theme="light"] {
-  --bg-primary: var(--neutral-0);
   --bg-secondary: var(--neutral-50);
   --bg-secondary-hover: var(--neutral-100);
   --text-primary: var(--neutral-950);
@@ -10,7 +9,6 @@
 }
 
 :root[data-theme="dark"] {
-  --bg-primary: var(--neutral-950);
   --bg-secondary: var(--neutral-900);
   --bg-secondary-hover: var(--neutral-800);
   --text-primary: var(--neutral-0);
@@ -20,37 +18,28 @@
   --icon-color: var(--neutral-300);
 }
 
-.container {
-  padding: var(--spacing-300);
-}
-
-.header {
-  margin-bottom: var(--spacing-300);
-}
-
-.title {
-  font-size: var(--spacing-300);
-  font-weight: 600;
-  margin-bottom: var(--spacing-100);
-  color: var(--text-primary);
-}
-
-.subtitle {
-  color: var(--text-secondary);
-}
-
-.optionsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-200);
-  margin-bottom: var(--spacing-300);
-  border: none;
-  padding: 0;
-}
-
 .option {
   background-color: var(--bg-secondary);
   border-radius: var(--spacing-100);
+}
+.option[data-option="sans-serif"] {
+  font-family:
+    var(--inter),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+.option[data-option="serif"] {
+  font-family: var(--noto-serif), ui-serif, Georgia, Cambria, "Times New Roman",
+    Times, serif;
+}
+
+.option[data-option="monospace"] {
+  font-family: var(--source-code-pro), ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
 }
 
 .option:hover {
@@ -143,24 +132,7 @@
   transform: translate(-50%, -50%);
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .radioInput:focus-visible + .radioCustom {
-  outline: 2px solid var(--blue-500);
-  outline-offset: 2px;
-}
-
-.applyButton:focus-visible {
   outline: 2px solid var(--blue-500);
   outline-offset: 2px;
 }

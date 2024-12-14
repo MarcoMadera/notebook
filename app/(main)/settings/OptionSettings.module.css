@@ -1,0 +1,61 @@
+:root[data-theme="light"] {
+  --bg-primary: var(--neutral-0);
+  --bg-secondary: var(--neutral-50);
+  --bg-secondary-hover: var(--neutral-100);
+  --text-primary: var(--neutral-950);
+  --text-secondary: var(--neutral-500);
+  --border-color: var(--neutral-200);
+  --icon-wrapper-bg: var(--neutral-0);
+  --icon-color: var(--neutral-500);
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: var(--neutral-950);
+  --bg-secondary: var(--neutral-900);
+  --bg-secondary-hover: var(--neutral-800);
+  --text-primary: var(--neutral-0);
+  --text-secondary: var(--neutral-300);
+  --border-color: var(--neutral-800);
+  --icon-wrapper-bg: var(--neutral-900);
+  --icon-color: var(--neutral-300);
+}
+
+.container {
+  padding: var(--spacing-300);
+}
+
+.header {
+  margin-bottom: var(--spacing-300);
+}
+
+.title {
+  font-size: var(--spacing-300);
+  font-weight: 600;
+  margin-bottom: var(--spacing-100);
+  color: var(--text-primary);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  margin-bottom: var(--spacing-300);
+  border: none;
+  padding: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
