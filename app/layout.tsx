@@ -5,9 +5,13 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
 
+import { FONT_FAMILY_MAP } from "./(main)/settings/constants";
+
 import { Theme } from "@/constants/theme";
+import { FontProvider } from "@/contexts/FontContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { validateTheme } from "@/utils";
+import { validateFont, validateTheme } from "@/utils";
+
 import "./globals.css";
 
 const inter = localFont({
@@ -21,7 +25,7 @@ const notoSerif = localFont({
   weight: "100 900",
 });
 const sourceCodePro = localFont({
-  src: "./fonts/source-code-pro/SourceCodePro-Italic-VariableFont_wght.ttf",
+  src: "./fonts/source-code-pro/SourceCodePro-VariableFont_wght.ttf",
   variable: "--source-code-pro",
   weight: "100 900",
 });
@@ -52,14 +56,18 @@ export default async function RootLayout({
 }>): Promise<ReactElement> {
   const cookieStore = await cookies();
   const theme = validateTheme(cookieStore.get("notes-theme")?.value);
+  const font = validateFont(cookieStore.get("notes-font")?.value);
   const systemTheme = validateTheme(cookieStore.get("system-theme")?.value);
 
   return (
     <html lang="en" data-theme={theme === Theme.SYSTEM ? systemTheme : theme}>
       <body
         className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable}`}
+        style={{ fontFamily: FONT_FAMILY_MAP[font] }}
       >
-        <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
+        <FontProvider initialFont={font}>
+          <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
+        </FontProvider>
       </body>
     </html>
   );

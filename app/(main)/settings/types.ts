@@ -1,25 +1,44 @@
 import { ReactElement, SVGProps } from "react";
 
 import { SVGRProps } from "@/app/ui/icons/types";
-import { Theme } from "@/constants/theme";
 
 export type ThemeOption = "light" | "dark" | "system";
 
-export interface ThemeOptionConfig {
-  id: Theme;
+export interface OptionConfig<T = string> {
+  id: T;
   title: string;
   description: string;
   Icon: (props: SVGProps<SVGSVGElement> & SVGRProps) => ReactElement;
 }
 
 export interface ThemeOptionProps {
-  config: ThemeOptionConfig;
+  config: OptionConfig;
   isSelected: boolean;
-  onSelect: (theme: ThemeOption) => void;
+  handleChange: (id: string) => void;
   name: string;
   Icon: (props: SVGProps<SVGSVGElement> & SVGRProps) => ReactElement;
 }
 
-export interface ThemeSettingsProps {
-  onThemeChange?: (theme: ThemeOption) => void;
+export interface OptionSettingsProps<T = string> {
+  onChange?: (option: T) => void;
+  options: OptionConfig[];
+  initialOption: T;
+  setOption: (option: T) => void;
+  validator: (value: string) => T;
+  ariaLabel: string;
+  name: string;
+  legend: string;
+  title: string;
+  description: string;
+}
+
+export enum FontFamily {
+  SansSerif = "sans-serif",
+  Serif = "serif",
+  MonoSpace = "monospace",
+}
+
+export interface FontContextType {
+  font: FontFamily;
+  setFont: (font: FontFamily) => void;
 }

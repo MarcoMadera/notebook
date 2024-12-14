@@ -18,7 +18,6 @@
 .anchor.action {
   text-decoration: underline;
   color: var(--action-color);
-  font-family: var(--inter);
 }
 .anchor:hover {
   color: var(--action-hover-color);

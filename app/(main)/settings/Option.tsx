@@ -1,19 +1,26 @@
 "use client";
 
-import React, { ReactElement } from "react";
+import React, { DetailedHTMLProps, ReactElement } from "react";
 
-import styles from "./ThemeSettings.module.css";
+import styles from "./Option.module.css";
 import { ThemeOptionProps } from "./types";
 
-export const Option: React.FC<ThemeOptionProps> = ({
+export const Option: React.FC<
+  DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
+    ThemeOptionProps
+> = ({
   config,
   isSelected,
-  onSelect,
+  handleChange,
   name,
   Icon,
+  ...props
 }): ReactElement => {
   return (
-    <div className={`${styles.option} ${isSelected ? styles.selected : ""}`}>
+    <div
+      className={`${styles.option} ${isSelected ? styles.selected : ""}`}
+      {...props}
+    >
       <label className={styles.optionLabel} htmlFor={`theme-${config.id}`}>
         <div className={styles.iconWrapper}>
           <Icon className={styles.icon} aria-hidden="true" />
@@ -30,7 +37,7 @@ export const Option: React.FC<ThemeOptionProps> = ({
           name={name}
           value={config.id}
           checked={isSelected}
-          onChange={() => onSelect(config.id)}
+          onChange={() => handleChange(config.id)}
           className={styles.radioInput}
           aria-label={`Select ${config.title}`}
         />
