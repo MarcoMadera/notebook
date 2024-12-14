@@ -1,0 +1,166 @@
+:root[data-theme="light"] {
+  --bg-primary: var(--neutral-0);
+  --bg-secondary: var(--neutral-50);
+  --bg-secondary-hover: var(--neutral-100);
+  --text-primary: var(--neutral-950);
+  --text-secondary: var(--neutral-500);
+  --border-color: var(--neutral-200);
+  --icon-wrapper-bg: var(--neutral-0);
+  --icon-color: var(--neutral-500);
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: var(--neutral-950);
+  --bg-secondary: var(--neutral-900);
+  --bg-secondary-hover: var(--neutral-800);
+  --text-primary: var(--neutral-0);
+  --text-secondary: var(--neutral-300);
+  --border-color: var(--neutral-800);
+  --icon-wrapper-bg: var(--neutral-900);
+  --icon-color: var(--neutral-300);
+}
+
+.container {
+  padding: var(--spacing-300);
+}
+
+.header {
+  margin-bottom: var(--spacing-300);
+}
+
+.title {
+  font-size: var(--spacing-300);
+  font-weight: 600;
+  margin-bottom: var(--spacing-100);
+  color: var(--text-primary);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  margin-bottom: var(--spacing-300);
+  border: none;
+  padding: 0;
+}
+
+.option {
+  background-color: var(--bg-secondary);
+  border-radius: var(--spacing-100);
+}
+
+.option:hover {
+  background-color: var(--bg-secondary-hover);
+}
+
+.selected {
+  background-color: var(--bg-secondary-hover);
+}
+
+.optionLabel {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-200);
+  cursor: pointer;
+  width: 100%;
+}
+
+.iconWrapper {
+  width: var(--spacing-500);
+  height: var(--spacing-500);
+  background-color: var(--icon-wrapper-bg);
+  border-radius: var(--spacing-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-200);
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.icon {
+  width: var(--spacing-250);
+  height: var(--spacing-250);
+  color: var(--icon-color);
+}
+
+.textContent {
+  flex: 1;
+}
+
+.optionTitle {
+  font-size: var(--spacing-200);
+  font-weight: 500;
+  margin-bottom: var(--spacing-050);
+  color: var(--text-primary);
+}
+
+.optionDescription {
+  color: var(--text-secondary);
+  font-size: var(--spacing-150);
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.radioCustom {
+  width: var(--spacing-250);
+  height: var(--spacing-250);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  margin-left: var(--spacing-200);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.radioSelected {
+  border-color: var(--blue-500);
+}
+
+.radioSelected::after {
+  content: "";
+  position: absolute;
+  width: var(--spacing-150);
+  height: var(--spacing-150);
+  background-color: var(--blue-500);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.radioInput:focus-visible + .radioCustom {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 2px;
+}
+
+.applyButton:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 2px;
+}
