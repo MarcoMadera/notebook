@@ -25,7 +25,7 @@ export default async function RootLayout({
   return (
     <div className="grid-container grid-container--no-sidebar">
       <SidebarAllNotes initialNotes={initialNotes} baseUrl="/archived">
-        <span className="text-preset-5" style={{ fontFamily: "Inter" }}>
+        <span className="text-preset-5">
           All your archived notes are stored here. You can restore or delete
           them anytime.
         </span>
