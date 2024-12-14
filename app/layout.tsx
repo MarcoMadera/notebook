@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { cookies } from "next/headers";
 
+import { Theme } from "@/constants/theme";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { validateTheme } from "@/utils";
 import "./globals.css";
@@ -51,9 +52,10 @@ export default async function RootLayout({
 }>): Promise<ReactElement> {
   const cookieStore = await cookies();
   const theme = validateTheme(cookieStore.get("notes-theme")?.value);
+  const systemTheme = validateTheme(cookieStore.get("system-theme")?.value);
 
   return (
-    <html lang="en" data-theme={theme}>
+    <html lang="en" data-theme={theme === Theme.SYSTEM ? systemTheme : theme}>
       <body
         className={`${inter.variable} ${notoSerif.variable} ${sourceCodePro.variable}`}
       >

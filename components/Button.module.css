@@ -45,9 +45,12 @@
   border: 1px solid transparent;
   border-radius: var(--radius-8);
   cursor: pointer;
-  width: 100%;
   transition: all 0.2s;
   height: fit-content;
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 .button.primary {

@@ -1,12 +1,16 @@
-import { ReactElement } from "react";
+"use client";
+
+import { ReactElement, useState } from "react";
+
+import ThemeSettings from "./ThemeSettings";
 
 import { Font, Lock, Logout, Sun } from "@/app/ui/icons";
 import { Divider } from "@/components/Divider";
 import styles from "@/components/SidebarAllNotes.module.css";
 import { SideBarItem } from "@/components/SideBarItem";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
-export default function Home(): ReactElement {
+export default function Settings(): ReactElement {
+  const [selected, setSelected] = useState("theme");
   return (
     <div className="grid-container grid-container--no-sidebar">
       <aside
@@ -15,17 +19,49 @@ export default function Home(): ReactElement {
         }
       >
         <ul className={`${styles.container} ${styles.group}`}>
-          <SideBarItem href="/settings/theme" icon={<Sun />}>
+          <SideBarItem
+            icon={<Sun />}
+            variant="button"
+            type="button"
+            onClick={() => {
+              setSelected("theme");
+            }}
+            selected={selected === "theme"}
+          >
             Color Theme
           </SideBarItem>
-          <SideBarItem href="/settings/theme" icon={<Font />}>
+          <SideBarItem
+            icon={<Font />}
+            variant="button"
+            type="button"
+            onClick={() => {
+              setSelected("font");
+            }}
+            selected={selected === "font"}
+          >
             Font Theme
           </SideBarItem>
-          <SideBarItem href="/settings/theme" icon={<Lock />}>
+          <SideBarItem
+            icon={<Lock />}
+            variant="button"
+            type="button"
+            onClick={() => {
+              setSelected("password");
+            }}
+            selected={selected === "password"}
+          >
             Change Password
           </SideBarItem>
           <Divider />
-          <SideBarItem icon={<Logout />} variant="button" type="button">
+          <SideBarItem
+            icon={<Logout />}
+            variant="button"
+            type="button"
+            onClick={() => {
+              setSelected("logout");
+            }}
+            selected={selected === "logout"}
+          >
             Logout
           </SideBarItem>
         </ul>
@@ -35,7 +71,7 @@ export default function Home(): ReactElement {
           "col-span-6 col-start-4 tablet:col-span-8 tablet:col-start-1 mobile:col-span-8"
         }
       >
-        <ThemeToggle />
+        <ThemeSettings />
       </main>
     </div>
   );
