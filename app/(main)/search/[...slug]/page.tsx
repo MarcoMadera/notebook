@@ -10,16 +10,19 @@ import { createClient } from "@/utils/supabase/server";
 export default async function Page({
   params,
 }: Readonly<{
-  params: Promise<{ note: string }>;
+  params: Promise<{ slug: string }>;
 }>): Promise<ReactElement> {
-  const noteId = (await params).note;
+  const noteId = (await params).slug[0];
 
   if (!noteId) {
-    return <div>Please select a note</div>;
+    return (
+      <div className="col-span-6 col-start-4 tablet:col-span-8 tablet:col-start-1 mobile:col-span-8">
+        Please select a note
+      </div>
+    );
   }
   const supabase = await createClient();
   const data = await getNoteById(supabase, noteId);
-
   return (
     <>
       <Note note={data} showStatus />

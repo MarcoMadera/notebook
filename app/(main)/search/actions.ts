@@ -1,9 +1,8 @@
 "use server";
 
-import { getNotes, NoteWithTags } from "@/utils/supabase/notes";
-import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 
-export async function searchNotes(query: string): Promise<NoteWithTags[]> {
-  const supabase = await createClient();
-  return getNotes(supabase, { searchQuery: query });
+export async function revalidateSearch() {
+  revalidatePath("/search", "page");
+  return null;
 }

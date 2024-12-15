@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Fragment,
-  PropsWithChildren,
-  ReactElement,
-  useLayoutEffect,
-  useState,
-} from "react";
+import { Fragment, PropsWithChildren, ReactElement } from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -38,15 +32,8 @@ export function SidebarAllNotes({
 >): ReactElement {
   const shortcut = useKeyboardShortcut(ShortcutId.NewNote);
   const pathname = usePathname();
-  const { notes: globalNotes, setNotes } = useNotes();
-  const [mount, setMount] = useState(false);
-  const notes = mount ? globalNotes : initialNotes.data;
-
-  useLayoutEffect(() => {
-    setNotes(initialNotes.data);
-    setMount(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const notes = initialNotes.data;
+  // const { notes } = useNotes(initialNotes.data);
 
   return (
     <aside

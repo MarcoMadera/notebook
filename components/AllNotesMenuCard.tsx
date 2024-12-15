@@ -1,5 +1,7 @@
 import { ReactElement } from "react";
 
+import { useSearchParams } from "next/navigation";
+
 import { ALink } from "./ALink";
 import styles from "./AllNotesMenuCard.module.css";
 
@@ -24,9 +26,14 @@ export function AllNotesMenuCard({
   baseUrl?: string;
   selected?: boolean;
 }>): ReactElement {
+  const searchParams = useSearchParams();
+
+  const currentParams = new URLSearchParams(searchParams?.toString() ?? "");
+  const href = `${baseUrl}/${id}${currentParams.toString() ? `?${currentParams.toString()}` : ""}`;
+
   return (
     <ALink
-      href={`${baseUrl}/${id}`}
+      href={href}
       className={`${styles.linkContainer}  ${selected ? styles.selected : ""}`}
     >
       <article className={styles.container}>

@@ -1,8 +1,8 @@
-import { ReactElement } from "react";
+import { ReactElement, SVGProps } from "react";
 
-export function Logo(): ReactElement {
+export function Logo(props: Readonly<SVGProps<SVGSVGElement>>): ReactElement {
   return (
-    <svg width="95" height="28" fill="none" viewBox="0 0 95 28">
+    <svg width="95" height="28" fill="none" viewBox="0 0 95 28" {...props}>
       <g clipPath="url(#a)">
         <g
           fill="#335CFF"

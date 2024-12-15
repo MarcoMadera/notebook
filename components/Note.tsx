@@ -31,7 +31,6 @@ export function Note({
               <Tag /> Tags
             </div>
             <ScrollableContainer
-              height="2em"
               className={`${styles.subheaderContent} ${styles.headerTags}`}
             >
               {note.tags?.map((tagRelation, index) => (
