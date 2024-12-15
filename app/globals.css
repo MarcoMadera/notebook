@@ -796,6 +796,12 @@ input[type="password"] {
   appearance: none;
   -webkit-text-security: disc !important;
 }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  appearance: none;
+}
 
 @media (prefers-color-scheme: dark) {
   html {

@@ -67,29 +67,32 @@ export function PageHeader(): ReactElement {
       </div>
       <h1 className={`text-preset-1 ${styles.heading}`}>{getHeading()}</h1>
       <div className={styles.controls}>
-        <TextInput
-          ref={searchShortcut?.ref}
-          aria-keyshortcuts={searchShortcut?.["aria-keyshortcuts"]}
-          name="search"
-          id="search"
-          leftIcon={<Search />}
-          leftIconAriaLabel="Search"
-          onLeftIconClick={(value) => {
-            if (value) {
-              handleSearch(value);
-            }
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              const value = e.currentTarget.value;
-              handleSearch(value);
-            }
-          }}
-          placeholder="Search by title, content, or tags..."
-          className="text-preset-5"
-          disabled={isPending}
-        />
+        <search>
+          <TextInput
+            ref={searchShortcut?.ref}
+            aria-keyshortcuts={searchShortcut?.["aria-keyshortcuts"]}
+            name="search"
+            type="search"
+            id="search"
+            leftIcon={<Search />}
+            leftIconAriaLabel="Search"
+            onLeftIconClick={(value) => {
+              if (value) {
+                handleSearch(value);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                const value = e.currentTarget.value;
+                handleSearch(value);
+              }
+            }}
+            placeholder="Search by title, content, or tags..."
+            className="text-preset-5"
+            disabled={isPending}
+          />
+        </search>
         <ALink
           href="/settings"
           className={styles.settingsLink}
