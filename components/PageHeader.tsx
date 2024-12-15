@@ -7,7 +7,6 @@ import { ALink } from "./ALink";
 import { Logo } from "./Logo";
 import styles from "./PageHeader.module.css";
 
-import { searchNotes } from "@/app/(main)/search/actions";
 import { Search, Settings } from "@/app/ui/icons";
 import TextInput from "@/app/ui/TextInput";
 import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut";
@@ -40,7 +39,10 @@ export function PageHeader(): ReactElement {
         : "Tagged Notes";
     }
 
-    if (pathname === "/search") {
+    if (
+      searchQuery &&
+      (pathname === "/search" || pathname.startsWith("/search/"))
+    ) {
       return searchQuery ? `Showing results for: ${searchQuery}` : "Search";
     }
 
@@ -52,28 +54,54 @@ export function PageHeader(): ReactElement {
   };
 
   const handleSearch = (value: string) => {
-    router.push(`/search?q=${value}`, { scroll: false });
+    if (!value.trim()) return;
 
-    startTransition(async () => {
-      const newNotes = await searchNotes(value);
-      setNotes(newNotes);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("q", value);
+
+    let noteId = "";
+
+    const uuidPattern = /[a-f0-9-]{36}/;
+    const pathParts = pathname.split("/");
+
+    for (const part of pathParts) {
+      if (uuidPattern.test(part)) {
+        noteId = part;
+        break;
+      }
+    }
+
+    let newPath = "/search";
+    if (noteId) {
+      newPath = `/search/${noteId}`;
+    }
+
+    startTransition(() => {
+      setNotes([]);
+      router.push(`${newPath}?${params.toString()}`, { scroll: false });
     });
   };
 
   return (
     <header className={styles.pageHeader}>
       <div className={styles.logo}>
-        <Logo />
+        <Logo aria-hidden="true" />
       </div>
       <h1 className={`text-preset-1 ${styles.heading}`}>{getHeading()}</h1>
       <div className={styles.controls}>
-        <search>
+        <search role="search" aria-label="Notes">
           <TextInput
             ref={searchShortcut?.ref}
             aria-keyshortcuts={searchShortcut?.["aria-keyshortcuts"]}
             name="search"
             type="search"
+            defaultValue={
+              pathname === "/search"
+                ? (searchParams.get("q") ?? undefined)
+                : undefined
+            }
             id="search"
+            autoComplete="off"
             leftIcon={<Search />}
             leftIconAriaLabel="Search"
             onLeftIconClick={(value) => {
