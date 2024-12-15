@@ -4,6 +4,8 @@ import { SidebarAllNotes } from "@/components/SidebarAllNotes";
 import { getNotes } from "@/utils/supabase/notes";
 import { createClient } from "@/utils/supabase/server";
 
+export const dynamic = "force-dynamic";
+
 export default function Search({
   searchParams,
 }: {
@@ -16,8 +18,6 @@ export default function Search({
   const initialNotes = searchQuery
     ? use(getNotes(supabase, { searchQuery }))
     : [];
-
-  console.log("sidebar", searchQuery);
 
   return (
     <SidebarAllNotes

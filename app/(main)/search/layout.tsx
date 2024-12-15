@@ -6,8 +6,6 @@ export const metadata: Metadata = {
   description: "Taking notes",
 };
 
-export const dynamic = "force-dynamic";
-
 export default function RootLayout({
   children,
   sidebar,

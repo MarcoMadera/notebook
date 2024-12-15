@@ -17,8 +17,6 @@ export default function Search({
     ? use(getNotes(supabase, { searchQuery }))
     : [];
 
-  console.log("sidebar page", searchQuery);
-
   return (
     <SidebarAllNotes
       key={`search-${searchQuery}`}

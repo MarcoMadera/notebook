@@ -7,6 +7,7 @@ import { ALink } from "./ALink";
 import { Logo } from "./Logo";
 import styles from "./PageHeader.module.css";
 
+import { revalidateSearch } from "@/app/(main)/search/actions";
 import { Search, Settings } from "@/app/ui/icons";
 import TextInput from "@/app/ui/TextInput";
 import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut";
@@ -78,6 +79,7 @@ export function PageHeader(): ReactElement {
 
     startTransition(() => {
       setNotes([]);
+      revalidateSearch();
       router.push(`${newPath}?${params.toString()}`, { scroll: false });
     });
   };
