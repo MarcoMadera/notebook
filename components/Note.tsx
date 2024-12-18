@@ -144,10 +144,17 @@ export function Note({
         <header className={styles.header}>
           <div
             contentEditable
+            role="textbox"
             onInput={handleTitleInput}
             className={styles.title}
             data-placeholder="Enter a title..."
             suppressContentEditableWarning
+            onFocus={() => {
+              setIsEditFocus(true);
+            }}
+            onBlur={() => {
+              setIsEditFocus(false);
+            }}
           >
             {note?.title ?? ""}
           </div>
@@ -160,10 +167,17 @@ export function Note({
             >
               <div
                 contentEditable
+                role="textbox"
                 onInput={handleTagsInput}
                 className={styles.tagInput}
                 data-placeholder="Add tags separated by commas (e.g. Work, Planning)"
                 suppressContentEditableWarning
+                onFocus={() => {
+                  setIsEditFocus(true);
+                }}
+                onBlur={() => {
+                  setIsEditFocus(false);
+                }}
               >
                 {note?.tags?.map((t) => t.tag.name).join(", ") ?? ""}
               </div>
